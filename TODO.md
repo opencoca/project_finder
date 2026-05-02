@@ -22,11 +22,7 @@ product description.
 
 ## In Progress
 
-
-- [ ] **Smallest Prototype**: Walk tree, find dirs containing `.git`, emit one markdown per repo with path + last commit timestamp. Python. ~2h. Today after breakfast. #critical
-  - [x] Initialize repo as a git project (`git init`)
-  - [ ] Add license file (AGPL per README)
-  - [ ] Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`
+_No active card. Pull the next one from `## TODO` when ready._
 
 ## TODO
 
@@ -121,6 +117,24 @@ _No known bugs yet — project hasn't shipped. Use `# BUG:` inline tags in sourc
 
 ## Done
 
-- [x] **TodoScope Alignment**: Bootstrap repo for kanban scanning
+- [x] **Vault Note Enrichment v1** (2026-05-02): Each note now carries a `parent/<dir>` tag, one `lang/<name>` tag per detected language (python, node, ruby, swift, perl, c, r — by marker files in the repo root), and a `- **Remote**: <url>` bullet linking to the host repo (SSH→HTTPS normalized, `.git` stripped). All bullets degrade gracefully when their data is absent.
+  - [x] Add host repo link (`git remote get-url origin`, SSH→HTTPS, strip `.git`)
+  - [x] Add `parent/<dir>` tag from the repo's containing directory
+  - [x] Detect languages from root marker files and emit `lang/<name>` tags
+  - [x] Re-run on `~/bin/` and confirm tags + host links render correctly
+
+- [x] **Disambiguate Repo Filenames + VSCode Links** (2026-05-02): Filenames now `<parent>_<repo>.md` (e.g. `bin_project_finder.md`); path bullet is a `vscode://file//<abs-path>` link. Verified with a constructed two-`notes` collision tree and a re-run on `~/bin/`.
+  - [x] Decide naming scheme — `<parent-dir>_<repo-name>.md`
+  - [x] Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme
+  - [x] Make the path bullet a `vscode://file/<abs-path>` link
+  - [x] Test on a tree with two repos sharing a basename to confirm no overwrites
+
+- [x] **Smallest Prototype** (2026-05-02): Walk tree, find dirs containing `.git`, emit one markdown per repo with path + last commit timestamp. Python, stdlib only. Verified on 14 repos in `~/bin/`.
+  - [x] Initialize repo as a git project (`git init`)
+  - [x] Add license file (AGPL per README)
+  - [x] Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`
+  - [x] Run end-to-end on a real tree and confirm the output looks right
+
+- [x] **TodoScope Alignment** (2026-05-02): Bootstrap repo for kanban scanning
   - [x] Create `.todoscope-exclude.csv` with sensible defaults
   - [x] Create initial `TODO.md` with convention header and roadmap structure

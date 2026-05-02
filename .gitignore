@@ -222,3 +222,6 @@ __marimo__/
 # Agentic local files
 .agentic/
 .claude/
+
+# macOS
+.DS_Store

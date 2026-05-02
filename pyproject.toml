@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "project_finder"
+version = "0.1.0"
+description = "Heuristic harness that locates dev projects and generates Obsidian documentation vaults."
+readme = "README.md"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "Alexander Somma" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+project_finder = "project_finder.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/project_finder"]
