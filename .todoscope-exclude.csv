@@ -1,0 +1,13 @@
+path,reason
+node_modules,dependency cache
+build,generated files
+dist,generated files
+__pycache__,Python bytecode cache
+.venv,virtual environment
+venv,virtual environment
+.mypy_cache,type-check cache
+.pytest_cache,test runner cache
+.ruff_cache,linter cache
+target,Rust/Java build output
+vendor,third-party dependencies
+.git,version control internals
