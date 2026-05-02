@@ -9,7 +9,7 @@ description = "Heuristic harness that locates dev projects and generates Obsidia
 readme = "README.md"
 license = { text = "AGPL-3.0-or-later" }
 authors = [{ name = "Alexander Somma" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = []
 
 [project.scripts]

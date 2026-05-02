@@ -28,46 +28,20 @@ _No active card. Pull the next one from `## TODO` when ready._
 
 ### Prototype Follow-ups
 
-- [ ] **Disambiguate Filename Collisions v2**: The `<parent>_<name>.md` scheme collides when two projects share the deepest two path segments. A `~` scan of 170 projects hit one 3-way collision (`plugin/multiplex` under three RobotInACan sites), losing 2 markdown files to overwrites. The walker now warns at runtime when this happens; the fix is to make the filename actually unique. Candidate schemes: relative-path-from-scan-root with `/` → `_` (always unique, longer names); short hash suffix only on collision (uglier but minimal name change for 99% case); or longest-unique-trailing-segments per project (clever but more code).
+- [ ] **Project Note Structure**: Add a per-note `## Structure` section listing the project's top-level files and immediate subdirs (skipping `.git`, `__pycache__`, etc.). Useful for at-a-glance "what does this project look like" without leaving Obsidian. Keep it shallow (top level only) — full tree is overwhelming.
 
-- [ ] **Smart C Detection**: Restore `Makefile` as a C marker without false positives — match it only when accompanied by `*.c`/`*.h`/`*.cpp` files at the same level. Currently `Makefile` is dropped from `LANGUAGE_MARKERS["c"]` because plain Makefiles in non-C dirs (e.g. `~/bin/Makefile`) trigger false-positive project roots and prevent descent.
+- [ ] **Re-emit on Description Change (Incremental Scan v2)**: Current incremental scan compares only `last_commit:`. If a manifest's `description` changes without a commit moving, the existing note stays stale. Possible fix: extend the comparison to a hash of `(timestamp + description)` stored in frontmatter, or add a `--force-rebuild` flag.
 
-- [ ] **External Excludes File**: Load excluded-dir names from a config file (e.g. `.project_finder_exclude` or a CLI `--exclude-from` flag) so users can add tree-specific noise without editing source. The current `EXCLUDED_DIR_NAMES` in [src/project_finder/cli.py](src/project_finder/cli.py) is hardcoded.
+- [ ] **Shared-Dependency Wikilinks**: Generate edges between projects that share a runtime dependency (e.g. all `react`-using projects link to each other or to a common phantom node). Higher graph density, but requires a global dependency map computed before any note is written.
 
-### Phase 1 — Scan
-
-- [ ] **Project Metadata Extraction**: Read what each marker tells us
-  - [ ] Extract name, version, dependencies from each manifest type
-  - [ ] Capture project root path and detected language(s)
-  - [ ] Capture last-modified timestamp from filesystem and git
-
-### Phase 2 — Change Detection
-
-- [ ] **Git-Aware Incremental Scan**: Skip unchanged projects
-  - [ ] Read each project's latest commit timestamp
-  - [ ] Compare against vault's recorded timestamp for that project
-  - [ ] Mark projects as fresh / stale / new
-  - [ ] Fall back to filesystem mtime for non-git projects
+- [ ] **Project Metadata v2 — Other Manifests**: Add metadata parsers for Ruby (`Gemfile.lock` — easier to parse than the Ruby-code `Gemfile`), Swift (parse the simple subset of `Package.swift` or fall back to `swift package describe --type json`), C (`CMakeLists.txt` `project()` directive), R (`DESCRIPTION` is colon-separated key/value, easy). Perl manifests are Perl code — defer indefinitely. Each parser plugs into `extract_metadata`'s orchestrator the same way `_python_metadata` / `_node_metadata` do.
 
 ### Phase 3 — Vault Generation
-
-- [ ] **Obsidian Markdown Emitter**: Produce one note per project
-  - [ ] Front matter with tags (language, has-git, last-updated)
-  - [ ] Project description, dependencies, structure
-  - [ ] Wiki-style `[[links]]` between related projects (shared deps, sibling repos)
-  - [ ] Index/MOC note that lists all projects
 
 - [ ] **Hardlinked Source References**: Filesystem links from vault to source
   - [ ] Detect existing hardlink count before writing (preserve inode if present)
   - [ ] Create hardlinks (not symlinks) from vault into project source dirs
   - [ ] Handle cross-filesystem case gracefully (warn, fall back to symlink or skip)
-
-### Phase 4 — Update & Maintenance
-
-- [ ] **Idempotent Re-runs**: Subsequent runs only touch changed projects
-  - [ ] Persist a small state file in the vault (project → last-scanned commit)
-  - [ ] On re-run, diff state vs. current and only regenerate stale notes
-  - [ ] Detect deleted projects and prune their notes
 
 ### Quality & Release
 
@@ -112,6 +86,60 @@ _No active card. Pull the next one from `## TODO` when ready._
 _No known bugs yet — project hasn't shipped. Use `# BUG:` inline tags in source to flag defects once code lands._
 
 ## Done
+
+- [x] **Detect & Prune Orphan Notes** (2026-05-02): When a project disappears from the filesystem, its vault note becomes a stale orphan. Added `_existing_note_path` (single-line scan for `path:` in frontmatter), `_detect_orphans(vault_root)` (rglobs `*.md` and reports notes whose recorded source path no longer exists), `_prune_empty_ancestors(start, stop)` (walks up from a deleted file's parent, rmdir-ing empty dirs until non-empty or vault root), and a `--prune-orphans` CLI flag. Default behavior: report to stderr but don't touch — the vault may not be under git and deletion is destructive (poka-yoke). With the flag, orphans are deleted and any newly-empty parent dirs along the path are cleaned up so the file tree stays tidy. Verified end-to-end: scan two projects → delete one → re-scan reports the orphan + leaves it on disk → re-scan with `--prune-orphans` deletes it. Notes without a `path:` field (user-created notes, READMEs) are left strictly alone. Also cleaned up dead code from the path-mirror refactor (`_group_by_default_name` and its expanded-groups stderr block, which were stale references to the removed `_trailing_filename`).
+  - [x] `_existing_note_path(note_path)` helper
+  - [x] `_detect_orphans(vault_root)` walker
+  - [x] `_prune_empty_ancestors(start, stop)` cleanup
+  - [x] `--prune-orphans` CLI flag
+  - [x] main: report always, delete + clean-up only when flag set
+  - [x] Three-step test: write both → delete one → report-only → prune
+
+- [x] **Mirror Path Ontology in Vault** (2026-05-02): Replaced the flat-filename-with-disambiguation scheme with a path-mirroring layout — each project at `<scan-root>/foo/bar/myproj` now writes to `<vault>/foo/bar/myproj.md`, so Obsidian's file tree directly reflects the source tree shape. Filename collisions are impossible by construction (paths are unique), siblings are visible by directory membership without needing wikilinks, and the MOC is redundant because the file tree IS the index. Removed: `_trailing_filename`, `_disambiguate_filenames`, `_group_by_default_name`, `_compute_siblings`, `_write_moc`, the `hashlib` import, the Siblings bullet, the MOC write call. Added: `_vault_output_path(project, scan_root, vault_root)` (handles `rel == .` for single-project scans and dots-in-dirname like `app.robotinacan.com` correctly via `f"{rel.name}.md"` rather than `with_suffix`). `emit_markdown` now takes `output_path: Path` directly; `main` mkdirs each parent on demand. Verified on `~`: 180 projects land at their full source-tree paths (e.g. three distinct `multiplex.md` files in their actual nested locations under `Documents/Projects/RobotInACan/...`); incremental scan still skips 180 on warm runs; touching a non-git project re-emits exactly that one note. Description / dependencies / VSCode link / remote bullets / parent + lang tags all preserved.
+
+- [x] **Obsidian Markdown Emitter v1 (Description + Siblings + MOC)** (2026-05-02): Three Phase 3 enrichments shipped. (1) **Description** — `_python_metadata` and `_node_metadata` now capture the manifest's `description` field and `emit_markdown` renders it as a paragraph between H1 and bullets, giving each note real human-readable context. (2) **Sibling wikilinks** — new `_compute_siblings(projects, filenames)` groups by parent directory; each project gets a `- **Siblings**: [[a]], [[b]]` bullet linking to others in the same parent, so Obsidian draws real graph edges between sibling notes. (3) **MOC** — new `_write_moc` emits an `Index.md` at the vault root with all 180 projects grouped by parent directory under `## <parent>` headings, hub-and-spoke from a single index node. Verified end-to-end on `~`: project_finder shows its description and 13 sibling links to other `~/bin/` repos; Index.md groups across 45 parent dirs. Three follow-ups filed (per-note Structure section, incremental-scan v2 for sibling/desc changes, shared-dep wikilinks).
+  - [x] Description from manifest, rendered between H1 and bullets
+  - [x] Sibling wikilinks via `_compute_siblings`
+  - [x] `Index.md` MOC via `_write_moc`
+  - [x] Re-scanned `~` end-to-end and confirmed all three render
+
+- [x] **Git-Aware Incremental Scan** (2026-05-02): Re-runs now skip unchanged projects. New `_project_timestamp_str(project)` helper centralizes the timestamp-string logic (git HEAD commit time → ISO; falls back to filesystem mtime for non-git projects, and `(non-git project, no mtime)` if even stat fails). New `_existing_note_timestamp(note_path)` does a single-line scan for `last_commit:` in an existing vault note. `main` precomputes the new timestamp once per project, compares it to the existing note's, and bypasses `emit_markdown` on match. `emit_markdown` was refactored to accept `timestamp_str` directly (the `ts: int | None` parameter is gone — single source of truth for the string). Output now appends "(N unchanged, skipped)" to the wrote-line. Verified: cold run writes 180, warm run skips 180, `touch` on a non-git project re-emits *just* that one, `touch` on a git project correctly does *not* re-emit (git tracks commits, not file mtime).
+  - [x] `_project_timestamp_str(project)` (git + mtime fallback)
+  - [x] `_existing_note_timestamp(note_path)` reader
+  - [x] `emit_markdown` refactored: takes `timestamp_str` directly
+  - [x] `main` loop: compare new vs. existing, skip on match
+  - [x] "(N unchanged, skipped)" in output
+  - [x] Cold/warm/touch-non-git/touch-git tests all behave correctly
+
+- [x] **Project Metadata Extraction v1 (Python + Node)** (2026-05-02): Notes now carry manifest-derived metadata when parseable. `pyproject.toml` (PEP 621 `[project]` table, parsed with stdlib `tomllib`) and `package.json` (parsed with `json`) feed `package_name` / `package_version` into frontmatter and a truncated `Dependencies (N)` bullet into the body. Bumped `requires-python` to `>=3.11` for `tomllib`. `extract_metadata` orchestrator returns the first non-None result (Python checked first), so polyglot projects pick one source per note for now. Verified end-to-end: `project_finder` shows its own pyproject metadata; `claude-max-api-proxy` shows `package_name: claude-max-api-proxy / version: 1.0.0 / Dependencies (2): express, uuid`; full `~` scan succeeds on 180 projects with zero crashes (86 notes have `package_name`, 61 have a Dependencies bullet). Other manifests (Gemfile, Package.swift, configure, DESCRIPTION) and filesystem-mtime fallback are filed as follow-ups.
+  - [x] Bumped `requires-python` to `>=3.11`
+  - [x] `_python_metadata(repo)` and `_node_metadata(repo)`
+  - [x] `extract_metadata(repo)` orchestrator
+  - [x] `emit_markdown` adds conditional `package_name` / `package_version` frontmatter
+  - [x] `emit_markdown` adds truncated `Dependencies (N)` bullet
+  - [x] Smoke-tested project_finder, a Node project, full `~` scan
+
+- [x] **External Excludes File** (2026-05-02): User-supplied exclude-dir names now layer on top of the hardcoded `EXCLUDED_DIR_NAMES` baseline, from two sources: an auto-loaded `<scan-path>/.project_finder_exclude` (best-effort — missing file is silently ignored) and a `--exclude-from <FILE>` CLI flag. File format is one dir name per line, with `#` comments and blanks tolerated. Threaded through `find_projects` via a new `extra_excludes` parameter. The "Found N projects" line now appends `(+N extra exclude(s))` when user excludes are in play, so the layering is transparent. Verified end-to-end with both file-based and flag-based input on a constructed `keep-me`/`skip-me` tree.
+  - [x] `_load_excludes(path) -> frozenset[str]` helper (silent on missing)
+  - [x] `--exclude-from FILE` CLI flag
+  - [x] Auto-load `<scan-path>/.project_finder_exclude`
+  - [x] `find_projects` accepts and merges `extra_excludes`
+  - [x] Tested via `.project_finder_exclude` and `--exclude-from`
+
+- [x] **Smart C Detection** (2026-05-02): Restored Makefile-driven C project detection without re-introducing the `~/bin/Makefile` false positive. Added `C_SOURCE_EXTENSIONS` constant and `_is_smart_c_project(files)` helper that requires a `Makefile` *plus* at least one `.c` / `.h` / `.cpp` / `.cc` / `.cxx` / `.hpp` / `.hxx` sibling at the same level. Wired into both `find_projects` (Makefile+C-source dirs are detected as projects) and `detect_languages` (those projects get `lang/c`). Verified: a constructed `Makefile+main.c` dir is detected and tagged; a Makefile-only dir is NOT claimed (`~/bin` stays at 14 projects). Scanning `~` rose from 170 → 180 — the 10 new projects are real Arduino-bootloader-style Makefile+C dirs, and 12 notes now carry the `lang/c` tag.
+  - [x] `C_SOURCE_EXTENSIONS` constant + `_is_smart_c_project(files)` helper
+  - [x] `find_projects` OR-in `_is_smart_c_project(files)`
+  - [x] `detect_languages` listdir + smart-C path
+  - [x] Constructed Makefile+main.c → detected + tagged `lang/c`
+  - [x] `~/bin/Makefile` alone → not claimed (regression safe)
+  - [x] `~` scan: 170 → 180 (10 real new C projects, no false positives)
+
+- [x] **Disambiguate Filename Collisions v2** (2026-05-02): Replaced the post-write collision *warning* with mechanical uniqueness *by construction*. New `_trailing_filename(project, n)` builds names from the last *n* meaningful path components; `_disambiguate_filenames(projects)` runs over the full project list once and expands trailing-segment count per colliding group until every member is unique (with a SHA-1 fallback for the effectively-impossible case). `main()` now precomputes all filenames before any write happens — silent overwrites are structurally impossible. Verified on `~`: 170 projects → 170 unique files, with the three `plugin/multiplex` paths cleanly resolved as `guidebook_plugin_multiplex.md`, `tutorials_plugin_multiplex.md`, `mess_experiment_plugin_multiplex.md`. The runtime warning was replaced with an informational stderr note showing what was disambiguated and to what.
+  - [x] Add `_trailing_filename(project, n)`
+  - [x] Add `_disambiguate_filenames(projects)` with segment-expansion + hash fallback
+  - [x] Update `emit_markdown` to accept a precomputed filename
+  - [x] Update `main()` to call disambiguation up front; informational note replaces warning
+  - [x] Re-run `~` scan and confirm 170 unique files
 
 - [x] **Skip Hidden Dirs by Default (Poka-Yoke)** (2026-05-02): Walking `~` blew up at first attempt — `~/.bun`, `~/.cache`, `~/.npm`, `~/.cargo`, `~/.pyenv`, `~/.local`, `~/.rustup` all contain tool-managed cached packages with `package.json` / `pyproject.toml` / `Gemfile` markers, each falsely marked as a project. Fix: `find_projects` now prunes any dir whose name starts with `.` by default (matches the `find`/`ls` convention), with `--include-hidden` to opt back in. Also added `Caches`, `Containers`, `Application Support` to `EXCLUDED_DIR_NAMES` to catch macOS `~/Library/...` traps. As a related poka-yoke, the runtime now detects `<parent>_<name>` filename collisions and warns to stderr with the colliding paths — found 170 projects in `~`, with one 3-way `plugin_multiplex.md` collision visibly reported (deeper rename scheme deferred to a follow-up card).
   - [x] Prune dirs starting with `.` in `find_projects`
