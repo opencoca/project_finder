@@ -1,0 +1,642 @@
+{
+  "edges": [],
+  "nodes": [
+    {
+      "color": "4",
+      "height": 340,
+      "id": "col-backlog",
+      "label": "Backlog",
+      "type": "group",
+      "width": 300,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 90,
+          "tags": [],
+          "text": "Go (`go.mod`)"
+        },
+        {
+          "checked": false,
+          "line_num": 91,
+          "tags": [],
+          "text": "Rust (`Cargo.toml`)"
+        },
+        {
+          "checked": false,
+          "line_num": 92,
+          "tags": [],
+          "text": "Elixir (`mix.exs`)"
+        },
+        {
+          "checked": false,
+          "line_num": 93,
+          "tags": [],
+          "text": "Java/Kotlin (`pom.xml`, `build.gradle`)"
+        },
+        {
+          "checked": false,
+          "line_num": 94,
+          "tags": [],
+          "text": "PHP (`composer.json`)"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "653add9d9721a991",
+      "line_num": 89,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Additional Language Detectors: Beyond the README's initial set**\n- [ ] Go (`go.mod`)\n- [ ] Rust (`Cargo.toml`)\n- [ ] Elixir (`mix.exs`)\n- [ ] Java/Kotlin (`pom.xml`, `build.gradle`)\n- [ ] PHP (`composer.json`)\n\n`TODO.md:L89`",
+      "type": "text",
+      "width": 280,
+      "x": 10,
+      "y": 60
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 97,
+          "tags": [],
+          "text": "README excerpt embedded in each project note"
+        },
+        {
+          "checked": false,
+          "line_num": 98,
+          "tags": [],
+          "text": "Dependency graph canvas"
+        },
+        {
+          "checked": false,
+          "line_num": 99,
+          "tags": [],
+          "text": "Auto-tag projects by topic (web, cli, library, app)"
+        },
+        {
+          "checked": false,
+          "line_num": 100,
+          "tags": [],
+          "text": "Detect monorepos and emit a parent-child relationship"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "5514507e2dc49b78",
+      "line_num": 96,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Vault Enrichment: Nice-to-haves for the Obsidian output**\n- [ ] README excerpt embedded in each project note\n- [ ] Dependency graph canvas\n- [ ] Auto-tag projects by topic (web, cli, library, app)\n- [ ] Detect monorepos and emit a parent-child relationship\n\n`TODO.md:L96`",
+      "type": "text",
+      "width": 280,
+      "x": 10,
+      "y": 150
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 103,
+          "tags": [],
+          "text": "Parallel walk with bounded concurrency"
+        },
+        {
+          "checked": false,
+          "line_num": 104,
+          "tags": [],
+          "text": "Cache filesystem stat calls"
+        },
+        {
+          "checked": false,
+          "line_num": 105,
+          "tags": [],
+          "text": "Optional `--since <date>` to skip whole subtrees"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "d414b920bdb3d981",
+      "line_num": 102,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Performance: When scanning very large trees**\n- [ ] Parallel walk with bounded concurrency\n- [ ] Cache filesystem stat calls\n- [ ] Optional `--since <date>` to skip whole subtrees\n\n`TODO.md:L102`",
+      "type": "text",
+      "width": 280,
+      "x": 10,
+      "y": 240
+    },
+    {
+      "height": 790,
+      "id": "col-todo",
+      "label": "TODO",
+      "type": "group",
+      "width": 300,
+      "x": 350,
+      "y": 0
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 37,
+          "tags": [],
+          "text": "Extract name, version, dependencies from each manifest type"
+        },
+        {
+          "checked": false,
+          "line_num": 38,
+          "tags": [],
+          "text": "Capture project root path and detected language(s)"
+        },
+        {
+          "checked": false,
+          "line_num": 39,
+          "tags": [],
+          "text": "Capture last-modified timestamp from filesystem and git"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "8521bbf6a01b658d",
+      "line_num": 36,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Project Metadata Extraction: Read what each marker tells us**\n- [ ] Extract name, version, dependencies from each manifest type\n- [ ] Capture project root path and detected language(s)\n- [ ] Capture last-modified timestamp from filesystem and git\n\n`TODO.md:L36`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 60
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 44,
+          "tags": [],
+          "text": "Read each project's latest commit timestamp"
+        },
+        {
+          "checked": false,
+          "line_num": 45,
+          "tags": [],
+          "text": "Compare against vault's recorded timestamp for that project"
+        },
+        {
+          "checked": false,
+          "line_num": 46,
+          "tags": [],
+          "text": "Mark projects as fresh / stale / new"
+        },
+        {
+          "checked": false,
+          "line_num": 47,
+          "tags": [],
+          "text": "Fall back to filesystem mtime for non-git projects"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "82c99c65a19835e4",
+      "line_num": 43,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Git-Aware Incremental Scan: Skip unchanged projects**\n- [ ] Read each project's latest commit timestamp\n- [ ] Compare against vault's recorded timestamp for that project\n- [ ] Mark projects as fresh / stale / new\n- [ ] Fall back to filesystem mtime for non-git projects\n\n`TODO.md:L43`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 150
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 52,
+          "tags": [],
+          "text": "Front matter with tags (language, has-git, last-updated)"
+        },
+        {
+          "checked": false,
+          "line_num": 53,
+          "tags": [],
+          "text": "Project description, dependencies, structure"
+        },
+        {
+          "checked": false,
+          "line_num": 54,
+          "tags": [],
+          "text": "Wiki-style `[[links]]` between related projects (shared deps, sibling repos)"
+        },
+        {
+          "checked": false,
+          "line_num": 55,
+          "tags": [],
+          "text": "Index/MOC note that lists all projects"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "41c94ef1e3b8d561",
+      "line_num": 51,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Obsidian Markdown Emitter: Produce one note per project**\n- [ ] Front matter with tags (language, has-git, last-updated)\n- [ ] Project description, dependencies, structure\n- [ ] Wiki-style `[[links]]` between related projects (shared deps, sibling repos)\n- [ ] Index/MOC note that lists all projects\n\n`TODO.md:L51`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 240
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 58,
+          "tags": [],
+          "text": "Detect existing hardlink count before writing (preserve inode if present)"
+        },
+        {
+          "checked": false,
+          "line_num": 59,
+          "tags": [],
+          "text": "Create hardlinks (not symlinks) from vault into project source dirs"
+        },
+        {
+          "checked": false,
+          "line_num": 60,
+          "tags": [],
+          "text": "Handle cross-filesystem case gracefully (warn, fall back to symlink or skip)"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "2e817bfbe5a08d0d",
+      "line_num": 57,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Hardlinked Source References: Filesystem links from vault to source**\n- [ ] Detect existing hardlink count before writing (preserve inode if present)\n- [ ] Create hardlinks (not symlinks) from vault into project source dirs\n- [ ] Handle cross-filesystem case gracefully (warn, fall back to symlink or skip)\n\n`TODO.md:L57`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 330
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 65,
+          "tags": [],
+          "text": "Persist a small state file in the vault (project \u2192 last-scanned commit)"
+        },
+        {
+          "checked": false,
+          "line_num": 66,
+          "tags": [],
+          "text": "On re-run, diff state vs. current and only regenerate stale notes"
+        },
+        {
+          "checked": false,
+          "line_num": 67,
+          "tags": [],
+          "text": "Detect deleted projects and prune their notes"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "9d78a8042dafa1fa",
+      "line_num": 64,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Idempotent Re-runs: Subsequent runs only touch changed projects**\n- [ ] Persist a small state file in the vault (project \u2192 last-scanned commit)\n- [ ] On re-run, diff state vs. current and only regenerate stale notes\n- [ ] Detect deleted projects and prune their notes\n\n`TODO.md:L64`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 420
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 72,
+          "tags": [],
+          "text": "Fixture directory with one project of each supported language"
+        },
+        {
+          "checked": false,
+          "line_num": 73,
+          "tags": [],
+          "text": "Snapshot tests for emitted markdown"
+        },
+        {
+          "checked": false,
+          "line_num": 74,
+          "tags": [],
+          "text": "Test incremental re-run skips unchanged projects"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "b44c551ba1b13ae4",
+      "line_num": 71,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Test Harness: Cover the scanner and emitter**\n- [ ] Fixture directory with one project of each supported language\n- [ ] Snapshot tests for emitted markdown\n- [ ] Test incremental re-run skips unchanged projects\n\n`TODO.md:L71`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 510
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 77,
+          "tags": [],
+          "text": "`--help` with usage and flag list"
+        },
+        {
+          "checked": false,
+          "line_num": 78,
+          "tags": [],
+          "text": "Sensible default for `vault-output-path` if omitted"
+        },
+        {
+          "checked": false,
+          "line_num": 79,
+          "tags": [],
+          "text": "Progress output during scan"
+        },
+        {
+          "checked": false,
+          "line_num": 80,
+          "tags": [],
+          "text": "Exit codes for partial failures"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "2e8264a65836d1e2",
+      "line_num": 76,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**CLI Polish: First-run UX**\n- [ ] `--help` with usage and flag list\n- [ ] Sensible default for `vault-output-path` if omitted\n- [ ] Progress output during scan\n- [ ] Exit codes for partial failures\n\n`TODO.md:L76`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 600
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 83,
+          "tags": [],
+          "text": "Shebang / entry-point script"
+        },
+        {
+          "checked": false,
+          "line_num": 84,
+          "tags": [],
+          "text": "Install instructions in README"
+        },
+        {
+          "checked": false,
+          "line_num": 85,
+          "tags": [],
+          "text": "Version tag and changelog"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "c1049bfc347c2264",
+      "line_num": 82,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Packaging & Install: Make it runnable from `~/bin`**\n- [ ] Shebang / entry-point script\n- [ ] Install instructions in README\n- [ ] Version tag and changelog\n\n`TODO.md:L82`",
+      "type": "text",
+      "width": 280,
+      "x": 360,
+      "y": 690
+    },
+    {
+      "color": "5",
+      "height": 200,
+      "id": "col-in_progress",
+      "label": "In Progress",
+      "type": "group",
+      "width": 300,
+      "x": 700,
+      "y": 0
+    },
+    {
+      "children": [
+        {
+          "checked": false,
+          "line_num": 26,
+          "tags": [],
+          "text": "Replace `find_git_repos` with `find_projects` walking via `os.walk`, identifying a project as any dir containing `.git` OR a language marker (`package.json`, `pyproject.toml`, `setup.py`, `requirements.txt`, `Gemfile`, `Package.swift`, `Makefile.PL`, `cpanfile`, `Makefile`, `configure`, `CMakeLists.txt`, `DESCRIPTION`)"
+        },
+        {
+          "checked": false,
+          "line_num": 27,
+          "tags": [],
+          "text": "Stop descending once a project root is identified (don't double-count subprojects)"
+        },
+        {
+          "checked": false,
+          "line_num": 28,
+          "tags": [],
+          "text": "Hardcode an excluded-dir list (`node_modules`, `__pycache__`, `.venv`, `venv`, `target`, `build`, `dist`, `vendor`, `.mypy_cache`, `.pytest_cache`, `.ruff_cache`); CSV-loading is a follow-up"
+        },
+        {
+          "checked": false,
+          "line_num": 29,
+          "tags": [],
+          "text": "Update `emit_markdown` to gracefully degrade for non-git projects (skip `git` tag, omit Remote bullet, render \"(non-git project)\" timestamp)"
+        },
+        {
+          "checked": false,
+          "line_num": 30,
+          "tags": [],
+          "text": "Smoke test on `~/bin/` (still 14 git repos) plus a constructed mixed tree"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "4d1726cb8d1038f6",
+      "line_num": 25,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Project Discovery Walker: Recursively find projects by marker files (not just `.git`)**\n- [ ] Replace `find_git_repos` with `find_projects` walking via `os.walk`, identifying a project as any dir containing `.git` OR a language marker (`package.json`, `pyproject.toml`, `setup.py`, `requirements.txt`, `Gemfile`, `Package.swift`, `Makefile.PL`, `cpanfile`, `Makefile`, `configure`, `CMakeLists.txt`, `DESCRIPTION`)\n- [ ] Stop descending once a project root is identified (don't double-count subprojects)\n- [ ] Hardcode an excluded-dir list (`node_modules`, `__pycache__`, `.venv`, `venv`, `target`, `build`, `dist`, `vendor`, `.mypy_cache`, `.pytest_cache`, `.ruff_cache`); CSV-loading is a follow-up\n- [ ] Update `emit_markdown` to gracefully degrade for non-git projects (skip `git` tag, omit Remote bullet, render \"(non-git project)\" timestamp)\n- [ ] Smoke test on `~/bin/` (still 14 git repos) plus a constructed mixed tree\n\n`TODO.md:L25`",
+      "type": "text",
+      "width": 280,
+      "x": 710,
+      "y": 60
+    },
+    {
+      "color": "1",
+      "height": 200,
+      "id": "col-bugs",
+      "label": "Bugs",
+      "type": "group",
+      "width": 300,
+      "x": 1050,
+      "y": 0
+    },
+    {
+      "color": "6",
+      "height": 430,
+      "id": "col-done",
+      "label": "Done",
+      "type": "group",
+      "width": 300,
+      "x": 1400,
+      "y": 0
+    },
+    {
+      "children": [
+        {
+          "checked": true,
+          "line_num": 114,
+          "tags": [],
+          "text": "Add host repo link (`git remote get-url origin`, SSH\u2192HTTPS, strip `.git`)"
+        },
+        {
+          "checked": true,
+          "line_num": 115,
+          "tags": [],
+          "text": "Add `parent/<dir>` tag from the repo's containing directory"
+        },
+        {
+          "checked": true,
+          "line_num": 116,
+          "tags": [],
+          "text": "Detect languages from root marker files and emit `lang/<name>` tags"
+        },
+        {
+          "checked": true,
+          "line_num": 117,
+          "tags": [],
+          "text": "Re-run on `~/bin/` and confirm tags + host links render correctly"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "d842e5909faaafe8",
+      "line_num": 113,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Vault Note Enrichment v1 (2026-05-02): Each note now carries a `parent/<dir>` tag, one `lang/<name>` tag per detected language (python, node, ruby, swift, perl, c, r \u2014 by marker files in the repo root), and a `- Remote: <url>` bullet linking to the host repo (SSH\u2192HTTPS normalized, `.git` stripped). All bullets degrade gracefully when their data is absent.**\n- [x] Add host repo link (`git remote get-url origin`, SSH\u2192HTTPS, strip `.git`)\n- [x] Add `parent/<dir>` tag from the repo's containing directory\n- [x] Detect languages from root marker files and emit `lang/<name>` tags\n- [x] Re-run on `~/bin/` and confirm tags + host links render correctly\n\n`TODO.md:L113`",
+      "type": "text",
+      "width": 280,
+      "x": 1410,
+      "y": 60
+    },
+    {
+      "children": [
+        {
+          "checked": true,
+          "line_num": 120,
+          "tags": [],
+          "text": "Decide naming scheme \u2014 `<parent-dir>_<repo-name>.md`"
+        },
+        {
+          "checked": true,
+          "line_num": 121,
+          "tags": [],
+          "text": "Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme"
+        },
+        {
+          "checked": true,
+          "line_num": 122,
+          "tags": [],
+          "text": "Make the path bullet a `vscode://file/<abs-path>` link"
+        },
+        {
+          "checked": true,
+          "line_num": 123,
+          "tags": [],
+          "text": "Test on a tree with two repos sharing a basename to confirm no overwrites"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "4017fb451cb2e00d",
+      "line_num": 119,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Disambiguate Repo Filenames + VSCode Links (2026-05-02): Filenames now `<parent>_<repo>.md` (e.g. `bin_project_finder.md`); path bullet is a `vscode://file//<abs-path>` link. Verified with a constructed two-`notes` collision tree and a re-run on `~/bin/`.**\n- [x] Decide naming scheme \u2014 `<parent-dir>_<repo-name>.md`\n- [x] Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme\n- [x] Make the path bullet a `vscode://file/<abs-path>` link\n- [x] Test on a tree with two repos sharing a basename to confirm no overwrites\n\n`TODO.md:L119`",
+      "type": "text",
+      "width": 280,
+      "x": 1410,
+      "y": 150
+    },
+    {
+      "children": [
+        {
+          "checked": true,
+          "line_num": 126,
+          "tags": [],
+          "text": "Initialize repo as a git project (`git init`)"
+        },
+        {
+          "checked": true,
+          "line_num": 127,
+          "tags": [],
+          "text": "Add license file (AGPL per README)"
+        },
+        {
+          "checked": true,
+          "line_num": 128,
+          "tags": [],
+          "text": "Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`"
+        },
+        {
+          "checked": true,
+          "line_num": 129,
+          "tags": [],
+          "text": "Run end-to-end on a real tree and confirm the output looks right"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "e8e18b6de553ee65",
+      "line_num": 125,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**Smallest Prototype (2026-05-02): Walk tree, find dirs containing `.git`, emit one markdown per repo with path + last commit timestamp. Python, stdlib only. Verified on 14 repos in `~/bin/`.**\n- [x] Initialize repo as a git project (`git init`)\n- [x] Add license file (AGPL per README)\n- [x] Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`\n- [x] Run end-to-end on a real tree and confirm the output looks right\n\n`TODO.md:L125`",
+      "type": "text",
+      "width": 280,
+      "x": 1410,
+      "y": 240
+    },
+    {
+      "children": [
+        {
+          "checked": true,
+          "line_num": 132,
+          "tags": [],
+          "text": "Create `.todoscope-exclude.csv` with sensible defaults"
+        },
+        {
+          "checked": true,
+          "line_num": 133,
+          "tags": [],
+          "text": "Create initial `TODO.md` with convention header and roadmap structure"
+        }
+      ],
+      "file_path": "TODO.md",
+      "height": 80,
+      "id": "b77a1f6ceb301086",
+      "line_num": 131,
+      "source": "todo_md",
+      "tags": [],
+      "text": "**TodoScope Alignment (2026-05-02): Bootstrap repo for kanban scanning**\n- [x] Create `.todoscope-exclude.csv` with sensible defaults\n- [x] Create initial `TODO.md` with convention header and roadmap structure\n\n`TODO.md:L131`",
+      "type": "text",
+      "width": 280,
+      "x": 1410,
+      "y": 330
+    }
+  ]
+}

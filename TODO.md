@@ -26,19 +26,15 @@ _No active card. Pull the next one from `## TODO` when ready._
 
 ## TODO
 
-### Phase 1 — Scan
+### Prototype Follow-ups
 
-- [ ] **Project Discovery Walker**: Recursively find projects by marker files
-  - [ ] Walk directory tree honoring `.todoscope-exclude.csv` style exclusions
-  - [ ] Detect git repos via `.git`
-  - [ ] Detect Node.js via `package.json`
-  - [ ] Detect Python via `pyproject.toml`, `setup.py`, `requirements.txt`
-  - [ ] Detect Ruby via `Gemfile`
-  - [ ] Detect Swift via `Package.swift`
-  - [ ] Detect Perl via `Makefile.PL`, `cpanfile`
-  - [ ] Detect C via `Makefile`, `configure`, `CMakeLists.txt`
-  - [ ] Detect R via `DESCRIPTION`
-  - [ ] Stop descending once a project root is identified (don't double-count subprojects)
+- [ ] **Disambiguate Filename Collisions v2**: The `<parent>_<name>.md` scheme collides when two projects share the deepest two path segments. A `~` scan of 170 projects hit one 3-way collision (`plugin/multiplex` under three RobotInACan sites), losing 2 markdown files to overwrites. The walker now warns at runtime when this happens; the fix is to make the filename actually unique. Candidate schemes: relative-path-from-scan-root with `/` → `_` (always unique, longer names); short hash suffix only on collision (uglier but minimal name change for 99% case); or longest-unique-trailing-segments per project (clever but more code).
+
+- [ ] **Smart C Detection**: Restore `Makefile` as a C marker without false positives — match it only when accompanied by `*.c`/`*.h`/`*.cpp` files at the same level. Currently `Makefile` is dropped from `LANGUAGE_MARKERS["c"]` because plain Makefiles in non-C dirs (e.g. `~/bin/Makefile`) trigger false-positive project roots and prevent descent.
+
+- [ ] **External Excludes File**: Load excluded-dir names from a config file (e.g. `.project_finder_exclude` or a CLI `--exclude-from` flag) so users can add tree-specific noise without editing source. The current `EXCLUDED_DIR_NAMES` in [src/project_finder/cli.py](src/project_finder/cli.py) is hardcoded.
+
+### Phase 1 — Scan
 
 - [ ] **Project Metadata Extraction**: Read what each marker tells us
   - [ ] Extract name, version, dependencies from each manifest type
@@ -116,6 +112,21 @@ _No active card. Pull the next one from `## TODO` when ready._
 _No known bugs yet — project hasn't shipped. Use `# BUG:` inline tags in source to flag defects once code lands._
 
 ## Done
+
+- [x] **Skip Hidden Dirs by Default (Poka-Yoke)** (2026-05-02): Walking `~` blew up at first attempt — `~/.bun`, `~/.cache`, `~/.npm`, `~/.cargo`, `~/.pyenv`, `~/.local`, `~/.rustup` all contain tool-managed cached packages with `package.json` / `pyproject.toml` / `Gemfile` markers, each falsely marked as a project. Fix: `find_projects` now prunes any dir whose name starts with `.` by default (matches the `find`/`ls` convention), with `--include-hidden` to opt back in. Also added `Caches`, `Containers`, `Application Support` to `EXCLUDED_DIR_NAMES` to catch macOS `~/Library/...` traps. As a related poka-yoke, the runtime now detects `<parent>_<name>` filename collisions and warns to stderr with the colliding paths — found 170 projects in `~`, with one 3-way `plugin_multiplex.md` collision visibly reported (deeper rename scheme deferred to a follow-up card).
+  - [x] Prune dirs starting with `.` in `find_projects`
+  - [x] Add `--include-hidden` CLI flag
+  - [x] Add macOS Library noise to `EXCLUDED_DIR_NAMES`
+  - [x] Update module docstring + `--help` so the hidden-skip is discoverable
+  - [x] Re-scan `~` end-to-end (170 projects, sane count, collision warning surfaces)
+  - [x] Bonus: runtime collision detection + stderr warning
+
+- [x] **Project Discovery Walker** (2026-05-02): Replaced `find_git_repos` with `os.walk`-based `find_projects` that detects any project root by marker (git or language file), stops descending once a root is identified, and prunes common noise dirs (`node_modules`, `__pycache__`, `.venv`, `venv`, `target`, `build`, `dist`, `vendor`, plus the `.mypy_cache` / `.pytest_cache` / `.ruff_cache` trio). `emit_markdown` now degrades gracefully for non-git projects (no `git` tag, no Remote bullet, no Last-commit bullet, frontmatter timestamp says `(non-git project)`). Verified on `~/bin/` (still 14) and a constructed mixed tree exercising git, non-git, nested, monorepo-stop-descent, and `node_modules` pruning.
+  - [x] Replace `find_git_repos` with `find_projects` (os.walk + unified `PROJECT_MARKERS`)
+  - [x] Stop descending once a project root is identified
+  - [x] Hardcoded excluded-dir list (CSV-loading deferred to a Prototype Follow-up)
+  - [x] `emit_markdown` gracefully degrades for non-git projects
+  - [x] Smoke tested on `~/bin/` and a mixed synthetic tree
 
 - [x] **Vault Note Enrichment v1** (2026-05-02): Each note now carries a `parent/<dir>` tag, one `lang/<name>` tag per detected language (python, node, ruby, swift, perl, c, r — by marker files in the repo root), and a `- **Remote**: <url>` bullet linking to the host repo (SSH→HTTPS normalized, `.git` stripped). All bullets degrade gracefully when their data is absent.
   - [x] Add host repo link (`git remote get-url origin`, SSH→HTTPS, strip `.git`)
