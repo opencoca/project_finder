@@ -24,26 +24,129 @@ product description.
 
 _No active card. Pull the next one from `## TODO` when ready._
 
-## TODO
+## Backlog
 
-### Prototype Follow-ups
+### Active: Two-Writer Workflow
 
-- [ ] **Project Note Structure**: Add a per-note `## Structure` section listing the project's top-level files and immediate subdirs (skipping `.git`, `__pycache__`, etc.). Useful for at-a-glance "what does this project look like" without leaving Obsidian. Keep it shallow (top level only) — full tree is overwhelming.
+- [ ] **M1 — Shadow tree for merge base**: Add `.project-finder/last-auto/<rel>/<note>.md` shadow mirror of the vault. After every successful emit, atomically write the freshly generated content to the shadow alongside writing it to the live file. The shadow is the `base` argument for 3-way merge on the next scan.
+  - [ ] Add `_shadow_path(output_path, vault_root)` helper computing the parallel path under `.project-finder/last-auto/`
+  - [ ] After each successful emit, write the same content to the shadow path (mkdir parent on demand)
+  - [ ] Atomic write via tempfile + rename so a crash mid-emit doesn't leave the shadow stale
+  - [ ] Test: cold scan, verify shadow tree mirrors vault structure 1:1
+  - [ ] Test: re-scan after editing a project, verify shadow updates with the new content
+
+- [ ] **M2 — 3-way merge via `git merge-file` in `emit_markdown`**: When the live file already exists, read it, read the shadow as `base`, treat the new auto content as `ours`, the live file as `theirs`. Shell out to `git merge-file --stdout ours base theirs` and write the result. Conflict markers (`<<<<<<<` etc.) land in the file when both sides edit the same line.
+  - [ ] Add `_three_way_merge(base, ours, theirs) -> tuple[str, bool]` helper using `git merge-file --stdout`; second tuple value is `has_conflicts`
+  - [ ] In `main` loop, when both `output_path` and shadow exist, call merge instead of direct write
+  - [ ] Fall back to direct write when shadow is missing (first run after migration) or when output_path doesn't exist
+  - [ ] Track per-file outcome (clean vs. conflict) and pass to M4's logger
+  - [ ] Test: synthetic non-conflicting modification on both sides → merge cleanly
+  - [ ] Test: synthetic same-line conflict → conflict markers land in file, outcome=conflict
+
+- [ ] **M3 — Layer 2 structural resolvers (≈5 hardcoded patterns)**: After M2 produces a conflict, walk each conflict hunk and try the resolvers in order before giving up. Patterns: (1) tag-list union, (2) bullet-list both-append, (3) frontmatter scalar where exactly one side matches base, (4) whitespace-only divergence (take theirs), (5) identical-after-normalization. Each resolver is a plain Python function in cli.py.
+  - [ ] Add `_parse_conflict_hunks(text)` helper extracting `<<<<<<< / ======= / >>>>>>>` regions
+  - [ ] Implement `_resolve_tag_list_union(hunk)` — both sides modified `tags: [...]` → union
+  - [ ] Implement `_resolve_bullet_list_append(hunk)` — both sides added different bullets → concat
+  - [ ] Implement `_resolve_frontmatter_scalar(hunk)` — exactly one side matches base → take the other
+  - [ ] Implement `_resolve_whitespace_only(hunk)` — only whitespace differs → take theirs
+  - [ ] Implement `_resolve_identical_after_normalization(hunk)` — collapse trailing-newline / quote-style differences
+  - [ ] Add orchestrator `_apply_layer2(merged_text)` that walks hunks, tries resolvers in order, returns resolved text + list of resolver names applied
+  - [ ] Wire into M2's post-merge flow: when conflicts exist, run Layer 2 before declaring `outcome=conflict`
+  - [ ] Test each resolver in isolation with synthetic conflict input
+  - [ ] Test orchestrator end-to-end with mixed conflict types
+
+- [ ] **M4 — Logfmt merge audit log + end-of-scan summary**: Append one logfmt line per merge to `.project-finder/merge-audit.log` (`ts= file= outcome=clean|layer2|conflict resolver=`). At the end of the scan, print an stderr summary: `N clean, M layer2-resolved, K need-manual` plus the file list of K. Outcome=conflict is the only one that asks the user to do something.
+  - [ ] Add `_audit_log(vault_root, **fields)` helper appending one logfmt line to `.project-finder/merge-audit.log`
+  - [ ] Quote values containing spaces (`rationale="kept user annotation"`)
+  - [ ] Track aggregate counts in `main`: clean / layer2-resolved / need-manual
+  - [ ] After loop, print stderr summary: `Merged: N clean, M layer2-resolved, K need-manual`
+  - [ ] If K > 0, list affected file paths to stderr (relative to vault_root)
+  - [ ] Test: scan with mixed outcomes, verify log lines + summary numbers match
+
+- [ ] **I1 — SilverBullet setup**: `docker run -p 3000:3000 -v <vault>:/space silverbullet`, document workflow in README. Includes a Space Lua snippet for querying notes by `lang/<x>` tag as a starter dashboard.
+  - [ ] Document docker run command + workflow in README under `## SilverBullet`
+  - [ ] Write a starter Space Lua dashboard snippet (query notes by `lang/<x>`, list by parent)
+  - [ ] Save the snippet as a `Dashboards.md` note (or document where the user pastes it)
+  - [ ] Verify SilverBullet loads the live vault, the dashboard renders, and queries return data
+
+- [ ] **I2 — Quartz wiring**: clone Quartz, symlink `content/ -> <vault>`, document `npx quartz build --serve` for local preview and `quartz build` + deploy for publish. Include the `vscode://` URL allowlist tweak.
+  - [ ] Document Quartz setup in README under `## Quartz` (clone, symlink content/, install deps)
+  - [ ] Identify and document the Quartz config tweak for allowlisting `vscode://` URLs
+  - [ ] Run `npx quartz build --serve` locally and verify rendering on http://localhost:8080
+  - [ ] Document at least one concrete deploy recipe (GitHub Pages / Netlify / Vercel)
+
+- [ ] **I3 — `publish: false` frontmatter convention**: project_finder respects an existing `publish: false` field in user-edited content (don't overwrite). Document it for Quartz config so private notes stay out of the static site.
+  - [ ] Update `emit_markdown` to detect a `publish:` field in the existing note and preserve its value
+  - [ ] Document the convention in README (how to mark a note private)
+  - [ ] Document the matching Quartz config to filter on `publish: false`
+  - [ ] Test: manually add `publish: false` to a note, re-scan, verify the field is preserved
+
+- [ ] **I4 — Optional vault-as-git auto-commit**: `--commit` flag that does `git add . && git commit -m "auto: scan completed at <ts>"` after writes (skips if no changes, no-op if vault isn't a git repo). Recovery layer; orthogonal to the merge subsystem.
+  - [ ] Add `--commit` CLI flag
+  - [ ] Add `_auto_commit(vault_root, message) -> bool` helper (returns True if a commit happened)
+  - [ ] Skip cleanly when vault is not a git repo OR no changes are pending
+  - [ ] Wire into `main` after the merge loop, conditional on flag
+  - [ ] Test: vault is git repo, dirty after scan, `--commit` → verify commit
+  - [ ] Test: vault not a git repo, `--commit` → graceful no-op
+  - [ ] Test: vault clean, `--commit` → no empty commit
+
+### LLM (deferred until Layer 1+2 residual rate is observed)
+
+- [ ] **L3a — LLM-assisted suggestion for residual conflicts**: For conflicts that survive M3, send (base, ours, theirs) to an LLM (Anthropic API behind a clean adapter), attach the suggestion as an HTML comment below the conflict block. Suggestion-only — never silent application. Includes content-derivability validation (suggestion's words must be derivable from the three inputs).
+  - [ ] Add Anthropic SDK dependency (claude-haiku for cost efficiency)
+  - [ ] Define `LLMAdapter` protocol; default impl = Anthropic API
+  - [ ] Add prompt template (base, ours, theirs → suggestion + confidence + rationale)
+  - [ ] Add `_validate_suggestion(suggestion, base, ours, theirs)` — content-derivability check (≥95% words from inputs)
+  - [ ] On conflict survival (after Layer 2), call adapter, validate, attach as `<!-- pf-llm-suggestion -->` comment below the conflict block
+  - [ ] Add per-scan call cap (default 20) + stderr warning when reached
+  - [ ] Test: synthetic conflict the LLM should handle → suggestion attached
+  - [ ] Test: malformed LLM output → graceful fallback to raw conflict, audit log records the failure
+
+- [ ] **L3b — Hash-based LLM cache** at `.project-finder/llm-cache/` keyed by `sha256(base, ours, theirs)`.
+  - [ ] Create `.project-finder/llm-cache/<sha256>.json` cache layer
+  - [ ] Cache key = `sha256(base + ours + theirs)`
+  - [ ] Cache value = full LLM response (suggestion, confidence, rationale)
+  - [ ] Wire as a check before LLM call in L3a
+  - [ ] Test: same conflict twice → second call hits cache, no LLM call
+
+- [ ] **L3c — `--auto-resolve <high|medium|low>` flag** to apply LLM suggestions directly when confidence ≥ threshold, wrapped in `<!-- pf-llm-resolved -->` markers for audit.
+  - [ ] Add `--auto-resolve <high|medium|low>` flag (off by default)
+  - [ ] When set, apply LLM suggestions whose confidence ≥ threshold inline, wrapped in `<!-- pf-llm-resolved -->` markers
+  - [ ] Log auto-applied resolutions to merge-audit.log with confidence + threshold
+  - [ ] Test: low-threshold scan applies high+medium+low; high-threshold applies only high; conflicts below threshold remain raw
+
+### Carry-overs
+
+- [ ] **Project Note Structure**: Add a per-note `## Structure` section listing the project's top-level files and immediate subdirs (skipping `.git`, `__pycache__`, etc.). Useful for at-a-glance "what does this project look like" without leaving Obsidian. Keep it shallow — full tree is overwhelming.
+  - [ ] Add `_project_structure(project, max_entries=20)` returning top-level files + dirs (filter via `EXCLUDED_DIR_NAMES` + dotdir rule)
+  - [ ] Render result as a `## Structure` heading + bullet list in the note body
+  - [ ] Cap at top-level only (no recursion); show "+N more" if more than `max_entries`
+  - [ ] Test on project_finder itself: should list LICENSE, README.md, TODO.md, pyproject.toml, src/, etc.
 
 - [ ] **Re-emit on Description Change (Incremental Scan v2)**: Current incremental scan compares only `last_commit:`. If a manifest's `description` changes without a commit moving, the existing note stays stale. Possible fix: extend the comparison to a hash of `(timestamp + description)` stored in frontmatter, or add a `--force-rebuild` flag.
+  - [ ] Decide approach: content hash in frontmatter (auto-detect), `--force-rebuild` flag (manual override), or both
+  - [ ] Implement chosen approach in `main`'s incremental-skip logic
+  - [ ] Document the behavior in README / `--help`
+  - [ ] Test: change a manifest description, re-scan, verify note re-emits
+  - [ ] Test: no source change, re-scan, verify note still skipped
 
-- [ ] **Shared-Dependency Wikilinks**: Generate edges between projects that share a runtime dependency (e.g. all `react`-using projects link to each other or to a common phantom node). Higher graph density, but requires a global dependency map computed before any note is written.
+## TODO
 
-- [ ] **Project Metadata v2 — Other Manifests**: Add metadata parsers for Ruby (`Gemfile.lock` — easier to parse than the Ruby-code `Gemfile`), Swift (parse the simple subset of `Package.swift` or fall back to `swift package describe --type json`), C (`CMakeLists.txt` `project()` directive), R (`DESCRIPTION` is colon-separated key/value, easy). Perl manifests are Perl code — defer indefinitely. Each parser plugs into `extract_metadata`'s orchestrator the same way `_python_metadata` / `_node_metadata` do.
 
-### Phase 3 — Vault Generation
 
-- [ ] **Hardlinked Source References**: Filesystem links from vault to source
-  - [ ] Detect existing hardlink count before writing (preserve inode if present)
-  - [ ] Create hardlinks (not symlinks) from vault into project source dirs
-  - [ ] Handle cross-filesystem case gracefully (warn, fall back to symlink or skip)
+### Other roadmap
 
-### Quality & Release
+- [ ] **Hardlinked Source References**: Filesystem links from vault to source — `ln` (not symlink) from a representative source file (likely each project's README) into the vault note's directory, so opening the note in Obsidian gives instant access to the source README. Detect existing hardlink count before writing (preserve inode if present); handle cross-filesystem case gracefully (warn, fall back to symlink or skip).
+  - [ ] Decide which file to hardlink (per-project README is the obvious starting point)
+  - [ ] Add `_hardlink_source(project, output_dir)` helper
+  - [ ] Detect existing hardlink count before writing — preserve inode if file is already hardlinked
+  - [ ] Use `os.link` (hardlink, not symlink) within same filesystem
+  - [ ] Handle cross-filesystem case: warn, fall back to symlink or skip per a flag
+  - [ ] Test: project with README → vault gets hardlinked README, modifying one updates both
+  - [ ] Test: project without README → graceful no-op
+  - [ ] Test: re-run with hardlink already in place → preserves the existing inode
+
+### Pre-Release (when we're closer to v1)
 
 - [ ] **Test Harness**: Cover the scanner and emitter
   - [ ] Fixture directory with one project of each supported language
@@ -61,7 +164,13 @@ _No active card. Pull the next one from `## TODO` when ready._
   - [ ] Install instructions in README
   - [ ] Version tag and changelog
 
-## Backlog
+### Future
+
+- [ ] **Vault Enrichment**: Nice-to-haves for the Obsidian output
+  - [ ] README excerpt embedded in each project note
+  - [ ] Dependency graph canvas
+  - [ ] Auto-tag projects by topic (web, cli, library, app)
+  - [ ] Detect monorepos and emit a parent-child relationship
 
 - [ ] **Additional Language Detectors**: Beyond the README's initial set
   - [ ] Go (`go.mod`)
@@ -69,12 +178,6 @@ _No active card. Pull the next one from `## TODO` when ready._
   - [ ] Elixir (`mix.exs`)
   - [ ] Java/Kotlin (`pom.xml`, `build.gradle`)
   - [ ] PHP (`composer.json`)
-
-- [ ] **Vault Enrichment**: Nice-to-haves for the Obsidian output
-  - [ ] README excerpt embedded in each project note
-  - [ ] Dependency graph canvas
-  - [ ] Auto-tag projects by topic (web, cli, library, app)
-  - [ ] Detect monorepos and emit a parent-child relationship
 
 - [ ] **Performance**: When scanning very large trees
   - [ ] Parallel walk with bounded concurrency
