@@ -130,9 +130,35 @@ _No active card. Pull the next one from `## TODO` when ready._
   - [ ] Test: change a manifest description, re-scan, verify note re-emits
   - [ ] Test: no source change, re-scan, verify note still skipped
 
+### Brand Move (gated on Startr trademark filing)
+
+- [ ] **Rename project_finder → Startr Repo Radar**: Brand consolidation under the Startr umbrella, alongside TodoScope. Gated on filing the "Startr" word-mark trademark application (US Classes 9 + 42 minimum) — the rename commits the project to the brand name, and Apple's Mac App Store has an existing "Repo Radar" by Callum Matthews (Sept 2025, 0 ratings, indie), so a registered Startr house mark materially strengthens any future "Startr Repo Radar.app" submission against confusing-similarity grounds. Naming canonicalization decided: brand "Startr Repo Radar"; PyPI distribution `reporadar`; Python import package `reporadar` (one word — matches CLI, since `repo_radar`/`repo-radar` is taken on PyPI); CLI command `reporadar`; config file `.reporadar_exclude` (clean break, no backward-compat — pre-1.0). See the 2026-05-03 plan-out for full file-by-file detail.
+
+  Pre-filing (you book outside this repo) — [MANUALLY]:
+  - [ ] Knock-out search "STARTR" at [tmsearch.uspto.gov](https://tmsearch.uspto.gov) — Classes 9 + 42, plus phonetic variants
+  - [ ] Get 2–3 flat-fee quotes from US trademark attorneys (~$750–$1,500 attorney + $500–$700 USPTO fees for two classes; total ~$1,500–$2,200)
+  - [ ] (Optional) CIPO knock-out + Canadian filing if Startr has CA presence (+~$1,300–$2,000 CAD all-in)
+  - [ ] File US "STARTR" word-mark application, Classes 9 + 42, "intent to use" (1B) basis
+  - [ ] Calendar §8 declaration window (year 5–6) + §8+§9 renewal window (year 9–10) the day the cert arrives
+
+  Repo rename (unblocks once filing is submitted) — split [WE] / [MANUALLY]:
+  - [ ] [WE] `git mv src/project_finder src/reporadar`
+  - [ ] [WE] [pyproject.toml](pyproject.toml): `name = "reporadar"`, `[project.scripts] reporadar = "reporadar.cli:main"`, `packages = ["src/reporadar"]`
+  - [ ] [WE] [src/reporadar/cli.py](src/project_finder/cli.py): module docstring → "Startr Repo Radar — …"; `prog="reporadar"`; replace every `.project_finder_exclude` with `.reporadar_exclude` (4 occurrences); update help-text "project_finder" mentions
+  - [ ] [WE] [src/reporadar/__init__.py](src/project_finder/__init__.py): docstring update
+  - [ ] [WE] [README.md](README.md): title → "Startr Repo Radar", install commands `uv tool install .` then `reporadar` (drop `project_finder`); `python -m reporadar.cli`; tagline / blurb mentions "Startr"
+  - [ ] [WE] [CHANGELOG.md](CHANGELOG.md): new `## [0.2.0] - <date> (unreleased)` entry under `### Changed` — "Renamed package + CLI to `reporadar`; brand is Startr Repo Radar; config file convention `.project_finder_exclude` → `.reporadar_exclude` (clean break, pre-1.0)"; update version-tag URL footer
+  - [ ] [WE] [TODO.md](TODO.md): header `# TODO — Startr Repo Radar`; replace `project_finder` mentions in body where current (Done entries are historical, leave alone)
+  - [ ] [WE] `pyproject.toml` version bump → `0.2.0`; `__init__.py` `__version__` synced
+  - [ ] [WE] Regenerate [uv.lock](uv.lock) via `uv lock`
+  - [ ] [WE] Sweep: `grep -rn "project_finder\|project-finder" --include="*.py" --include="*.toml" --include="*.md"` should return zero hits in source (Done-column historical refs in TODO/CHANGELOG are fine)
+  - [ ] [MANUALLY] Close any shells/agents cwd'd in `~/bin/project_finder`, then `mv ~/bin/project_finder ~/bin/repo_radar` (or `~/bin/reporadar` — pick one)
+  - [ ] [MANUALLY] GitHub: rename remote repo in settings (`project_finder` → `reporadar`); `git remote set-url origin git@github.com:sommaalexander/reporadar.git`
+  - [ ] [MANUALLY] `uv tool uninstall project_finder && uv tool install ~/bin/repo_radar` (or whatever the new dir is)
+  - [ ] [WE] Verify: `which reporadar`; `reporadar --help` shows new prog; `reporadar ~ ~/Obsidian/project-finder-test` runs cleanly (consider also renaming the test vault to `reporadar-test` if you want consistency)
+  - [ ] [MANUALLY] `git tag -a v0.2.0 -m "Renamed to Startr Repo Radar"` && `git push --tags`
+
 ## TODO
-
-
 
 ### Other roadmap
 
@@ -146,25 +172,14 @@ _No active card. Pull the next one from `## TODO` when ready._
   - [ ] Test: project without README → graceful no-op
   - [ ] Test: re-run with hardlink already in place → preserves the existing inode
 
-### Pre-Release (when we're closer to v1)
+### Pre-Release
 
 - [ ] **Test Harness**: Cover the scanner and emitter
   - [ ] Fixture directory with one project of each supported language
   - [ ] Snapshot tests for emitted markdown
   - [ ] Test incremental re-run skips unchanged projects
 
-- [ ] **CLI Polish**: First-run UX
-  - [ ] `--help` with usage and flag list
-  - [ ] Sensible default for `vault-output-path` if omitted
-  - [ ] Progress output during scan
-  - [ ] Exit codes for partial failures
-
-- [ ] **Packaging & Install**: Make it runnable from `~/bin`
-  - [ ] Shebang / entry-point script
-  - [ ] Install instructions in README
-  - [ ] Version tag and changelog
-
-### Future
+### Enhancements
 
 - [ ] **Vault Enrichment**: Nice-to-haves for the Obsidian output
   - [ ] README excerpt embedded in each project note
@@ -189,6 +204,17 @@ _No active card. Pull the next one from `## TODO` when ready._
 _No known bugs yet — project hasn't shipped. Use `# BUG:` inline tags in source to flag defects once code lands._
 
 ## Done
+
+- [x] **Packaging & Install** (2026-05-03): Closed out the v1-readiness card. The `[project.scripts]` entry in `pyproject.toml` already puts `project_finder` on PATH after install, so no separate shebang/entry-point script was needed. Added an `## Installation` section to README documenting the three practical paths: `uv tool install .` (global), `uv run project_finder ...` (one-off), and `python -m project_finder.cli ...` (in-checkout dev). Created `CHANGELOG.md` in Keep-a-Changelog format with a `[0.1.0] - 2026-05-03 (unreleased)` section summarizing every shipped Done card grouped under Added / Tools. Tagging `v0.1.0` is a [MANUALLY] release act left for Alex to run when ready (`git tag -a v0.1.0 -m "..." && git push --tags`).
+  - [x] Shebang / entry-point script — already in place via `[project.scripts]`, verified
+  - [x] Install instructions in README — `## Installation` section between `## Features` and `## Usage`
+  - [x] Version tag and changelog — `CHANGELOG.md` written; `git tag v0.1.0` is [MANUALLY], your call
+
+- [x] **CLI Polish** (2026-05-03): Closed out the first-run UX card. Three of four subtasks were already shipped during prior cards (argparse with full help strings on every flag, `Path.cwd() / "vault"` default for vault-output-path, per-project + summary progress lines). The fourth — exit codes for partial failures — was the real gap: a single corrupt project crashed the entire scan, dropping all subsequent emits. Fixed by wrapping the per-project loop body in `try/except Exception`: failures log a `! <path>: <exception>` line to stderr, increment a `failed` counter, and the loop continues. After the loop, if `failed > 0`, the process raises `SystemExit(1)` with a summary line. Verified with a synthetic test (booby-trapped vault with a file blocking a needed directory): bad project failed cleanly with stderr message, good project still emitted, exit code 1. Re-ran on `~` against the live vault: 177 unchanged-skipped + 3 re-emitted, exit code 0. No regressions.
+  - [x] `--help` with usage and flag list — already in place via argparse
+  - [x] Sensible default for `vault-output-path` if omitted — already in place (`Path.cwd() / "vault"`)
+  - [x] Progress output during scan — already in place (per-project + summary lines)
+  - [x] Exit codes for partial failures — `try/except Exception` per project, `SystemExit(1)` if any failed
 
 - [x] **Detect & Prune Orphan Notes** (2026-05-02): When a project disappears from the filesystem, its vault note becomes a stale orphan. Added `_existing_note_path` (single-line scan for `path:` in frontmatter), `_detect_orphans(vault_root)` (rglobs `*.md` and reports notes whose recorded source path no longer exists), `_prune_empty_ancestors(start, stop)` (walks up from a deleted file's parent, rmdir-ing empty dirs until non-empty or vault root), and a `--prune-orphans` CLI flag. Default behavior: report to stderr but don't touch — the vault may not be under git and deletion is destructive (poka-yoke). With the flag, orphans are deleted and any newly-empty parent dirs along the path are cleaned up so the file tree stays tidy. Verified end-to-end: scan two projects → delete one → re-scan reports the orphan + leaves it on disk → re-scan with `--prune-orphans` deletes it. Notes without a `path:` field (user-created notes, READMEs) are left strictly alone. Also cleaned up dead code from the path-mirror refactor (`_group_by_default_name` and its expanded-groups stderr block, which were stale references to the removed `_trailing_filename`).
   - [x] `_existing_note_path(note_path)` helper

@@ -8,6 +8,23 @@ This is a clean and simple huristic harness that locates dev projects in given f
 - **Hardlinked References** — Maintains direct filesystem links between documentation and source code
 - **Elegant Architecture** — Simple, fast heuristics-based scanning without heavy databases
 
+## Installation
+
+`project_finder` is a Python 3.11+ stdlib-only tool packaged with `hatchling`. The recommended path uses [uv](https://docs.astral.sh/uv/):
+
+```bash
+# Install globally so `project_finder` is on PATH everywhere:
+uv tool install .
+
+# Or run a one-off without installing:
+uv run project_finder <scan-path> [vault-output-path]
+
+# Or, from a checkout, run the module directly during development:
+python -m project_finder.cli <scan-path> [vault-output-path]
+```
+
+After `uv tool install .` you can run `project_finder --help` from any shell.
+
 ## Usage
 
 ```bash

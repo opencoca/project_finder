@@ -673,21 +673,30 @@ def main() -> None:
     # disambiguation needed — and the file tree is the navigation index.
     written = 0
     skipped = 0
+    failed = 0
     for project in projects:
-        output_path = _vault_output_path(project, scan_path, out_dir)
-        new_ts_str = _project_timestamp_str(project)
-        existing_ts_str = _existing_note_timestamp(output_path)
+        # Per-project resilience: one corrupt project (broken .git, unreadable
+        # manifest, etc.) shouldn't block all subsequent emits. We log the
+        # failure to stderr, increment the counter, and continue. The non-zero
+        # exit code at the bottom keeps the "fail loud" signal for shell users.
+        try:
+            output_path = _vault_output_path(project, scan_path, out_dir)
+            new_ts_str = _project_timestamp_str(project)
+            existing_ts_str = _existing_note_timestamp(output_path)
 
-        if existing_ts_str is not None and existing_ts_str == new_ts_str:
-            skipped += 1
-            print(f"  - {project} -> {output_path.relative_to(out_dir)} (unchanged, skipped)")
-            continue
+            if existing_ts_str is not None and existing_ts_str == new_ts_str:
+                skipped += 1
+                print(f"  - {project} -> {output_path.relative_to(out_dir)} (unchanged, skipped)")
+                continue
 
-        # mkdir before write so emit_markdown only has to worry about content.
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        out_file = emit_markdown(project, output_path, new_ts_str)
-        written += 1
-        print(f"  - {project} -> {out_file.relative_to(out_dir)}")
+            # mkdir before write so emit_markdown only has to worry about content.
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            out_file = emit_markdown(project, output_path, new_ts_str)
+            written += 1
+            print(f"  - {project} -> {out_file.relative_to(out_dir)}")
+        except Exception as exc:
+            failed += 1
+            print(f"  ! {project}: {exc}", file=sys.stderr)
 
     skipped_note = f" ({skipped} unchanged, skipped)" if skipped else ""
     print(f"\nWrote {written} markdown files under {out_dir}{skipped_note}.")
@@ -711,6 +720,15 @@ def main() -> None:
                 _prune_empty_ancestors(parent, out_dir)
         else:
             print("Pass --prune-orphans to delete them.", file=sys.stderr)
+
+    # Non-zero exit when any project failed to emit. Lets shells / CI / wrappers
+    # detect partial-failure runs without parsing stderr — clean run exits 0.
+    if failed:
+        print(
+            f"\n{failed} project(s) failed to emit — see stderr above.",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

@@ -651,60 +651,60 @@
       "children": [
         {
           "checked": false,
-          "line_num": 140,
+          "line_num": 138,
           "tags": [],
           "text": "Decide which file to hardlink (per-project README is the obvious starting point)"
         },
         {
           "checked": false,
-          "line_num": 141,
+          "line_num": 139,
           "tags": [],
           "text": "Add `_hardlink_source(project, output_dir)` helper"
         },
         {
           "checked": false,
-          "line_num": 142,
+          "line_num": 140,
           "tags": [],
           "text": "Detect existing hardlink count before writing \u2014 preserve inode if file is already hardlinked"
         },
         {
           "checked": false,
-          "line_num": 143,
+          "line_num": 141,
           "tags": [],
           "text": "Use `os.link` (hardlink, not symlink) within same filesystem"
         },
         {
           "checked": false,
-          "line_num": 144,
+          "line_num": 142,
           "tags": [],
           "text": "Handle cross-filesystem case: warn, fall back to symlink or skip per a flag"
         },
         {
           "checked": false,
-          "line_num": 145,
+          "line_num": 143,
           "tags": [],
           "text": "Test: project with README \u2192 vault gets hardlinked README, modifying one updates both"
         },
         {
           "checked": false,
-          "line_num": 146,
+          "line_num": 144,
           "tags": [],
           "text": "Test: project without README \u2192 graceful no-op"
         },
         {
           "checked": false,
-          "line_num": 147,
+          "line_num": 145,
           "tags": [],
           "text": "Test: re-run with hardlink already in place \u2192 preserves the existing inode"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "c56d04e59143a0c3",
-      "line_num": 139,
+      "id": "c1d6ce6f8d8fb677",
+      "line_num": 137,
       "source": "todo_md",
       "tags": [],
-      "text": "**Hardlinked Source References: Filesystem links from vault to source \u2014 `ln` (not symlink) from a representative source file (likely each project's README) into the vault note's directory, so opening the note in Obsidian gives instant access to the source README. Detect existing hardlink count before writing (preserve inode if present); handle cross-filesystem case gracefully (warn, fall back to symlink or skip).**\n- [ ] Decide which file to hardlink (per-project README is the obvious starting point)\n- [ ] Add `_hardlink_source(project, output_dir)` helper\n- [ ] Detect existing hardlink count before writing \u2014 preserve inode if file is already hardlinked\n- [ ] Use `os.link` (hardlink, not symlink) within same filesystem\n- [ ] Handle cross-filesystem case: warn, fall back to symlink or skip per a flag\n- [ ] Test: project with README \u2192 vault gets hardlinked README, modifying one updates both\n- [ ] Test: project without README \u2192 graceful no-op\n- [ ] Test: re-run with hardlink already in place \u2192 preserves the existing inode\n\n`TODO.md:L139`",
+      "text": "**Hardlinked Source References: Filesystem links from vault to source \u2014 `ln` (not symlink) from a representative source file (likely each project's README) into the vault note's directory, so opening the note in Obsidian gives instant access to the source README. Detect existing hardlink count before writing (preserve inode if present); handle cross-filesystem case gracefully (warn, fall back to symlink or skip).**\n- [ ] Decide which file to hardlink (per-project README is the obvious starting point)\n- [ ] Add `_hardlink_source(project, output_dir)` helper\n- [ ] Detect existing hardlink count before writing \u2014 preserve inode if file is already hardlinked\n- [ ] Use `os.link` (hardlink, not symlink) within same filesystem\n- [ ] Handle cross-filesystem case: warn, fall back to symlink or skip per a flag\n- [ ] Test: project with README \u2192 vault gets hardlinked README, modifying one updates both\n- [ ] Test: project without README \u2192 graceful no-op\n- [ ] Test: re-run with hardlink already in place \u2192 preserves the existing inode\n\n`TODO.md:L137`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -714,30 +714,30 @@
       "children": [
         {
           "checked": false,
-          "line_num": 152,
+          "line_num": 150,
           "tags": [],
           "text": "Fixture directory with one project of each supported language"
         },
         {
           "checked": false,
-          "line_num": 153,
+          "line_num": 151,
           "tags": [],
           "text": "Snapshot tests for emitted markdown"
         },
         {
           "checked": false,
-          "line_num": 154,
+          "line_num": 152,
           "tags": [],
           "text": "Test incremental re-run skips unchanged projects"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "842bac4cd42f6fc1",
-      "line_num": 151,
+      "id": "71f0d4f339ba2cc9",
+      "line_num": 149,
       "source": "todo_md",
       "tags": [],
-      "text": "**Test Harness: Cover the scanner and emitter**\n- [ ] Fixture directory with one project of each supported language\n- [ ] Snapshot tests for emitted markdown\n- [ ] Test incremental re-run skips unchanged projects\n\n`TODO.md:L151`",
+      "text": "**Test Harness: Cover the scanner and emitter**\n- [ ] Fixture directory with one project of each supported language\n- [ ] Snapshot tests for emitted markdown\n- [ ] Test incremental re-run skips unchanged projects\n\n`TODO.md:L149`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -747,36 +747,36 @@
       "children": [
         {
           "checked": false,
-          "line_num": 157,
+          "line_num": 155,
           "tags": [],
           "text": "`--help` with usage and flag list"
         },
         {
           "checked": false,
-          "line_num": 158,
+          "line_num": 156,
           "tags": [],
           "text": "Sensible default for `vault-output-path` if omitted"
         },
         {
           "checked": false,
-          "line_num": 159,
+          "line_num": 157,
           "tags": [],
           "text": "Progress output during scan"
         },
         {
           "checked": false,
-          "line_num": 160,
+          "line_num": 158,
           "tags": [],
           "text": "Exit codes for partial failures"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "b811a04ba43dde10",
-      "line_num": 156,
+      "id": "f4a5f5abc7b91596",
+      "line_num": 154,
       "source": "todo_md",
       "tags": [],
-      "text": "**CLI Polish: First-run UX**\n- [ ] `--help` with usage and flag list\n- [ ] Sensible default for `vault-output-path` if omitted\n- [ ] Progress output during scan\n- [ ] Exit codes for partial failures\n\n`TODO.md:L156`",
+      "text": "**CLI Polish: First-run UX**\n- [ ] `--help` with usage and flag list\n- [ ] Sensible default for `vault-output-path` if omitted\n- [ ] Progress output during scan\n- [ ] Exit codes for partial failures\n\n`TODO.md:L154`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -786,30 +786,30 @@
       "children": [
         {
           "checked": false,
-          "line_num": 163,
+          "line_num": 161,
           "tags": [],
           "text": "Shebang / entry-point script"
         },
         {
           "checked": false,
-          "line_num": 164,
+          "line_num": 162,
           "tags": [],
           "text": "Install instructions in README"
         },
         {
           "checked": false,
-          "line_num": 165,
+          "line_num": 163,
           "tags": [],
           "text": "Version tag and changelog"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "a2604a58611ce7e6",
-      "line_num": 162,
+      "id": "8547d8ce25ff513f",
+      "line_num": 160,
       "source": "todo_md",
       "tags": [],
-      "text": "**Packaging & Install: Make it runnable from `~/bin`**\n- [ ] Shebang / entry-point script\n- [ ] Install instructions in README\n- [ ] Version tag and changelog\n\n`TODO.md:L162`",
+      "text": "**Packaging & Install: Make it runnable from `~/bin`**\n- [ ] Shebang / entry-point script\n- [ ] Install instructions in README\n- [ ] Version tag and changelog\n\n`TODO.md:L160`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -819,36 +819,36 @@
       "children": [
         {
           "checked": false,
-          "line_num": 170,
+          "line_num": 168,
           "tags": [],
           "text": "README excerpt embedded in each project note"
         },
         {
           "checked": false,
-          "line_num": 171,
+          "line_num": 169,
           "tags": [],
           "text": "Dependency graph canvas"
         },
         {
           "checked": false,
-          "line_num": 172,
+          "line_num": 170,
           "tags": [],
           "text": "Auto-tag projects by topic (web, cli, library, app)"
         },
         {
           "checked": false,
-          "line_num": 173,
+          "line_num": 171,
           "tags": [],
           "text": "Detect monorepos and emit a parent-child relationship"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "29bf403a4a8840b5",
-      "line_num": 169,
+      "id": "6506498e3b97a141",
+      "line_num": 167,
       "source": "todo_md",
       "tags": [],
-      "text": "**Vault Enrichment: Nice-to-haves for the Obsidian output**\n- [ ] README excerpt embedded in each project note\n- [ ] Dependency graph canvas\n- [ ] Auto-tag projects by topic (web, cli, library, app)\n- [ ] Detect monorepos and emit a parent-child relationship\n\n`TODO.md:L169`",
+      "text": "**Vault Enrichment: Nice-to-haves for the Obsidian output**\n- [ ] README excerpt embedded in each project note\n- [ ] Dependency graph canvas\n- [ ] Auto-tag projects by topic (web, cli, library, app)\n- [ ] Detect monorepos and emit a parent-child relationship\n\n`TODO.md:L167`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -858,42 +858,42 @@
       "children": [
         {
           "checked": false,
-          "line_num": 176,
+          "line_num": 174,
           "tags": [],
           "text": "Go (`go.mod`)"
         },
         {
           "checked": false,
-          "line_num": 177,
+          "line_num": 175,
           "tags": [],
           "text": "Rust (`Cargo.toml`)"
         },
         {
           "checked": false,
-          "line_num": 178,
+          "line_num": 176,
           "tags": [],
           "text": "Elixir (`mix.exs`)"
         },
         {
           "checked": false,
-          "line_num": 179,
+          "line_num": 177,
           "tags": [],
           "text": "Java/Kotlin (`pom.xml`, `build.gradle`)"
         },
         {
           "checked": false,
-          "line_num": 180,
+          "line_num": 178,
           "tags": [],
           "text": "PHP (`composer.json`)"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "a496c206eaa835d7",
-      "line_num": 175,
+      "id": "c141a18dc084bd40",
+      "line_num": 173,
       "source": "todo_md",
       "tags": [],
-      "text": "**Additional Language Detectors: Beyond the README's initial set**\n- [ ] Go (`go.mod`)\n- [ ] Rust (`Cargo.toml`)\n- [ ] Elixir (`mix.exs`)\n- [ ] Java/Kotlin (`pom.xml`, `build.gradle`)\n- [ ] PHP (`composer.json`)\n\n`TODO.md:L175`",
+      "text": "**Additional Language Detectors: Beyond the README's initial set**\n- [ ] Go (`go.mod`)\n- [ ] Rust (`Cargo.toml`)\n- [ ] Elixir (`mix.exs`)\n- [ ] Java/Kotlin (`pom.xml`, `build.gradle`)\n- [ ] PHP (`composer.json`)\n\n`TODO.md:L173`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -903,30 +903,30 @@
       "children": [
         {
           "checked": false,
-          "line_num": 183,
+          "line_num": 181,
           "tags": [],
           "text": "Parallel walk with bounded concurrency"
         },
         {
           "checked": false,
-          "line_num": 184,
+          "line_num": 182,
           "tags": [],
           "text": "Cache filesystem stat calls"
         },
         {
           "checked": false,
-          "line_num": 185,
+          "line_num": 183,
           "tags": [],
           "text": "Optional `--since <date>` to skip whole subtrees"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "8602351efdbe779d",
-      "line_num": 182,
+      "id": "25f195ce57ad21b2",
+      "line_num": 180,
       "source": "todo_md",
       "tags": [],
-      "text": "**Performance: When scanning very large trees**\n- [ ] Parallel walk with bounded concurrency\n- [ ] Cache filesystem stat calls\n- [ ] Optional `--since <date>` to skip whole subtrees\n\n`TODO.md:L182`",
+      "text": "**Performance: When scanning very large trees**\n- [ ] Parallel walk with bounded concurrency\n- [ ] Cache filesystem stat calls\n- [ ] Optional `--since <date>` to skip whole subtrees\n\n`TODO.md:L180`",
       "type": "text",
       "width": 280,
       "x": 360,
@@ -966,48 +966,48 @@
       "children": [
         {
           "checked": true,
-          "line_num": 194,
+          "line_num": 192,
           "tags": [],
           "text": "`_existing_note_path(note_path)` helper"
         },
         {
           "checked": true,
-          "line_num": 195,
+          "line_num": 193,
           "tags": [],
           "text": "`_detect_orphans(vault_root)` walker"
         },
         {
           "checked": true,
-          "line_num": 196,
+          "line_num": 194,
           "tags": [],
           "text": "`_prune_empty_ancestors(start, stop)` cleanup"
         },
         {
           "checked": true,
-          "line_num": 197,
+          "line_num": 195,
           "tags": [],
           "text": "`--prune-orphans` CLI flag"
         },
         {
           "checked": true,
-          "line_num": 198,
+          "line_num": 196,
           "tags": [],
           "text": "main: report always, delete + clean-up only when flag set"
         },
         {
           "checked": true,
-          "line_num": 199,
+          "line_num": 197,
           "tags": [],
           "text": "Three-step test: write both \u2192 delete one \u2192 report-only \u2192 prune"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "384f5f6f6be88a65",
-      "line_num": 193,
+      "id": "02b4c8b8c7a9ebfd",
+      "line_num": 191,
       "source": "todo_md",
       "tags": [],
-      "text": "**Detect & Prune Orphan Notes (2026-05-02): When a project disappears from the filesystem, its vault note becomes a stale orphan. Added `_existing_note_path` (single-line scan for `path:` in frontmatter), `_detect_orphans(vault_root)` (rglobs `*.md` and reports notes whose recorded source path no longer exists), `_prune_empty_ancestors(start, stop)` (walks up from a deleted file's parent, rmdir-ing empty dirs until non-empty or vault root), and a `--prune-orphans` CLI flag. Default behavior: report to stderr but don't touch \u2014 the vault may not be under git and deletion is destructive (poka-yoke). With the flag, orphans are deleted and any newly-empty parent dirs along the path are cleaned up so the file tree stays tidy. Verified end-to-end: scan two projects \u2192 delete one \u2192 re-scan reports the orphan + leaves it on disk \u2192 re-scan with `--prune-orphans` deletes it. Notes without a `path:` field (user-created notes, READMEs) are left strictly alone. Also cleaned up dead code from the path-mirror refactor (`_group_by_default_name` and its expanded-groups stderr block, which were stale references to the removed `_trailing_filename`).**\n- [x] `_existing_note_path(note_path)` helper\n- [x] `_detect_orphans(vault_root)` walker\n- [x] `_prune_empty_ancestors(start, stop)` cleanup\n- [x] `--prune-orphans` CLI flag\n- [x] main: report always, delete + clean-up only when flag set\n- [x] Three-step test: write both \u2192 delete one \u2192 report-only \u2192 prune\n\n`TODO.md:L193`",
+      "text": "**Detect & Prune Orphan Notes (2026-05-02): When a project disappears from the filesystem, its vault note becomes a stale orphan. Added `_existing_note_path` (single-line scan for `path:` in frontmatter), `_detect_orphans(vault_root)` (rglobs `*.md` and reports notes whose recorded source path no longer exists), `_prune_empty_ancestors(start, stop)` (walks up from a deleted file's parent, rmdir-ing empty dirs until non-empty or vault root), and a `--prune-orphans` CLI flag. Default behavior: report to stderr but don't touch \u2014 the vault may not be under git and deletion is destructive (poka-yoke). With the flag, orphans are deleted and any newly-empty parent dirs along the path are cleaned up so the file tree stays tidy. Verified end-to-end: scan two projects \u2192 delete one \u2192 re-scan reports the orphan + leaves it on disk \u2192 re-scan with `--prune-orphans` deletes it. Notes without a `path:` field (user-created notes, READMEs) are left strictly alone. Also cleaned up dead code from the path-mirror refactor (`_group_by_default_name` and its expanded-groups stderr block, which were stale references to the removed `_trailing_filename`).**\n- [x] `_existing_note_path(note_path)` helper\n- [x] `_detect_orphans(vault_root)` walker\n- [x] `_prune_empty_ancestors(start, stop)` cleanup\n- [x] `--prune-orphans` CLI flag\n- [x] main: report always, delete + clean-up only when flag set\n- [x] Three-step test: write both \u2192 delete one \u2192 report-only \u2192 prune\n\n`TODO.md:L191`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1016,11 +1016,11 @@
     {
       "file_path": "TODO.md",
       "height": 80,
-      "id": "81e0b122dc4dd200",
-      "line_num": 201,
+      "id": "615a3fbcafdca89a",
+      "line_num": 199,
       "source": "todo_md",
       "tags": [],
-      "text": "**Mirror Path Ontology in Vault (2026-05-02): Replaced the flat-filename-with-disambiguation scheme with a path-mirroring layout \u2014 each project at `<scan-root>/foo/bar/myproj` now writes to `<vault>/foo/bar/myproj.md`, so Obsidian's file tree directly reflects the source tree shape. Filename collisions are impossible by construction (paths are unique), siblings are visible by directory membership without needing wikilinks, and the MOC is redundant because the file tree IS the index. Removed: `_trailing_filename`, `_disambiguate_filenames`, `_group_by_default_name`, `_compute_siblings`, `_write_moc`, the `hashlib` import, the Siblings bullet, the MOC write call. Added: `_vault_output_path(project, scan_root, vault_root)` (handles `rel == .` for single-project scans and dots-in-dirname like `app.robotinacan.com` correctly via `f\"{rel.name}.md\"` rather than `with_suffix`). `emit_markdown` now takes `output_path: Path` directly; `main` mkdirs each parent on demand. Verified on `~`: 180 projects land at their full source-tree paths (e.g. three distinct `multiplex.md` files in their actual nested locations under `Documents/Projects/RobotInACan/...`); incremental scan still skips 180 on warm runs; touching a non-git project re-emits exactly that one note. Description / dependencies / VSCode link / remote bullets / parent + lang tags all preserved.**\n`TODO.md:L201`",
+      "text": "**Mirror Path Ontology in Vault (2026-05-02): Replaced the flat-filename-with-disambiguation scheme with a path-mirroring layout \u2014 each project at `<scan-root>/foo/bar/myproj` now writes to `<vault>/foo/bar/myproj.md`, so Obsidian's file tree directly reflects the source tree shape. Filename collisions are impossible by construction (paths are unique), siblings are visible by directory membership without needing wikilinks, and the MOC is redundant because the file tree IS the index. Removed: `_trailing_filename`, `_disambiguate_filenames`, `_group_by_default_name`, `_compute_siblings`, `_write_moc`, the `hashlib` import, the Siblings bullet, the MOC write call. Added: `_vault_output_path(project, scan_root, vault_root)` (handles `rel == .` for single-project scans and dots-in-dirname like `app.robotinacan.com` correctly via `f\"{rel.name}.md\"` rather than `with_suffix`). `emit_markdown` now takes `output_path: Path` directly; `main` mkdirs each parent on demand. Verified on `~`: 180 projects land at their full source-tree paths (e.g. three distinct `multiplex.md` files in their actual nested locations under `Documents/Projects/RobotInACan/...`); incremental scan still skips 180 on warm runs; touching a non-git project re-emits exactly that one note. Description / dependencies / VSCode link / remote bullets / parent + lang tags all preserved.**\n`TODO.md:L199`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1030,36 +1030,36 @@
       "children": [
         {
           "checked": true,
-          "line_num": 204,
+          "line_num": 202,
           "tags": [],
           "text": "Description from manifest, rendered between H1 and bullets"
         },
         {
           "checked": true,
-          "line_num": 205,
+          "line_num": 203,
           "tags": [],
           "text": "Sibling wikilinks via `_compute_siblings`"
         },
         {
           "checked": true,
-          "line_num": 206,
+          "line_num": 204,
           "tags": [],
           "text": "`Index.md` MOC via `_write_moc`"
         },
         {
           "checked": true,
-          "line_num": 207,
+          "line_num": 205,
           "tags": [],
           "text": "Re-scanned `~` end-to-end and confirmed all three render"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "e808d6f44820bb76",
-      "line_num": 203,
+      "id": "bd3fb30e85425ccc",
+      "line_num": 201,
       "source": "todo_md",
       "tags": [],
-      "text": "**Obsidian Markdown Emitter v1 (Description + Siblings + MOC) (2026-05-02): Three Phase 3 enrichments shipped. (1) Description \u2014 `_python_metadata` and `_node_metadata` now capture the manifest's `description` field and `emit_markdown` renders it as a paragraph between H1 and bullets, giving each note real human-readable context. (2) Sibling wikilinks \u2014 new `_compute_siblings(projects, filenames)` groups by parent directory; each project gets a `- Siblings: [[a]], [[b]]` bullet linking to others in the same parent, so Obsidian draws real graph edges between sibling notes. (3) MOC \u2014 new `_write_moc` emits an `Index.md` at the vault root with all 180 projects grouped by parent directory under `## <parent>` headings, hub-and-spoke from a single index node. Verified end-to-end on `~`: project_finder shows its description and 13 sibling links to other `~/bin/` repos; Index.md groups across 45 parent dirs. Three follow-ups filed (per-note Structure section, incremental-scan v2 for sibling/desc changes, shared-dep wikilinks).**\n- [x] Description from manifest, rendered between H1 and bullets\n- [x] Sibling wikilinks via `_compute_siblings`\n- [x] `Index.md` MOC via `_write_moc`\n- [x] Re-scanned `~` end-to-end and confirmed all three render\n\n`TODO.md:L203`",
+      "text": "**Obsidian Markdown Emitter v1 (Description + Siblings + MOC) (2026-05-02): Three Phase 3 enrichments shipped. (1) Description \u2014 `_python_metadata` and `_node_metadata` now capture the manifest's `description` field and `emit_markdown` renders it as a paragraph between H1 and bullets, giving each note real human-readable context. (2) Sibling wikilinks \u2014 new `_compute_siblings(projects, filenames)` groups by parent directory; each project gets a `- Siblings: [[a]], [[b]]` bullet linking to others in the same parent, so Obsidian draws real graph edges between sibling notes. (3) MOC \u2014 new `_write_moc` emits an `Index.md` at the vault root with all 180 projects grouped by parent directory under `## <parent>` headings, hub-and-spoke from a single index node. Verified end-to-end on `~`: project_finder shows its description and 13 sibling links to other `~/bin/` repos; Index.md groups across 45 parent dirs. Three follow-ups filed (per-note Structure section, incremental-scan v2 for sibling/desc changes, shared-dep wikilinks).**\n- [x] Description from manifest, rendered between H1 and bullets\n- [x] Sibling wikilinks via `_compute_siblings`\n- [x] `Index.md` MOC via `_write_moc`\n- [x] Re-scanned `~` end-to-end and confirmed all three render\n\n`TODO.md:L201`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1069,48 +1069,48 @@
       "children": [
         {
           "checked": true,
-          "line_num": 210,
+          "line_num": 208,
           "tags": [],
           "text": "`_project_timestamp_str(project)` (git + mtime fallback)"
         },
         {
           "checked": true,
-          "line_num": 211,
+          "line_num": 209,
           "tags": [],
           "text": "`_existing_note_timestamp(note_path)` reader"
         },
         {
           "checked": true,
-          "line_num": 212,
+          "line_num": 210,
           "tags": [],
           "text": "`emit_markdown` refactored: takes `timestamp_str` directly"
         },
         {
           "checked": true,
-          "line_num": 213,
+          "line_num": 211,
           "tags": [],
           "text": "`main` loop: compare new vs. existing, skip on match"
         },
         {
           "checked": true,
-          "line_num": 214,
+          "line_num": 212,
           "tags": [],
           "text": "\"(N unchanged, skipped)\" in output"
         },
         {
           "checked": true,
-          "line_num": 215,
+          "line_num": 213,
           "tags": [],
           "text": "Cold/warm/touch-non-git/touch-git tests all behave correctly"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "27f385169ffba50d",
-      "line_num": 209,
+      "id": "c83a3213e37a6601",
+      "line_num": 207,
       "source": "todo_md",
       "tags": [],
-      "text": "**Git-Aware Incremental Scan (2026-05-02): Re-runs now skip unchanged projects. New `_project_timestamp_str(project)` helper centralizes the timestamp-string logic (git HEAD commit time \u2192 ISO; falls back to filesystem mtime for non-git projects, and `(non-git project, no mtime)` if even stat fails). New `_existing_note_timestamp(note_path)` does a single-line scan for `last_commit:` in an existing vault note. `main` precomputes the new timestamp once per project, compares it to the existing note's, and bypasses `emit_markdown` on match. `emit_markdown` was refactored to accept `timestamp_str` directly (the `ts: int | None` parameter is gone \u2014 single source of truth for the string). Output now appends \"(N unchanged, skipped)\" to the wrote-line. Verified: cold run writes 180, warm run skips 180, `touch` on a non-git project re-emits *just* that one, `touch` on a git project correctly does *not* re-emit (git tracks commits, not file mtime).**\n- [x] `_project_timestamp_str(project)` (git + mtime fallback)\n- [x] `_existing_note_timestamp(note_path)` reader\n- [x] `emit_markdown` refactored: takes `timestamp_str` directly\n- [x] `main` loop: compare new vs. existing, skip on match\n- [x] \"(N unchanged, skipped)\" in output\n- [x] Cold/warm/touch-non-git/touch-git tests all behave correctly\n\n`TODO.md:L209`",
+      "text": "**Git-Aware Incremental Scan (2026-05-02): Re-runs now skip unchanged projects. New `_project_timestamp_str(project)` helper centralizes the timestamp-string logic (git HEAD commit time \u2192 ISO; falls back to filesystem mtime for non-git projects, and `(non-git project, no mtime)` if even stat fails). New `_existing_note_timestamp(note_path)` does a single-line scan for `last_commit:` in an existing vault note. `main` precomputes the new timestamp once per project, compares it to the existing note's, and bypasses `emit_markdown` on match. `emit_markdown` was refactored to accept `timestamp_str` directly (the `ts: int | None` parameter is gone \u2014 single source of truth for the string). Output now appends \"(N unchanged, skipped)\" to the wrote-line. Verified: cold run writes 180, warm run skips 180, `touch` on a non-git project re-emits *just* that one, `touch` on a git project correctly does *not* re-emit (git tracks commits, not file mtime).**\n- [x] `_project_timestamp_str(project)` (git + mtime fallback)\n- [x] `_existing_note_timestamp(note_path)` reader\n- [x] `emit_markdown` refactored: takes `timestamp_str` directly\n- [x] `main` loop: compare new vs. existing, skip on match\n- [x] \"(N unchanged, skipped)\" in output\n- [x] Cold/warm/touch-non-git/touch-git tests all behave correctly\n\n`TODO.md:L207`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1120,48 +1120,48 @@
       "children": [
         {
           "checked": true,
-          "line_num": 218,
+          "line_num": 216,
           "tags": [],
           "text": "Bumped `requires-python` to `>=3.11`"
         },
         {
           "checked": true,
-          "line_num": 219,
+          "line_num": 217,
           "tags": [],
           "text": "`_python_metadata(repo)` and `_node_metadata(repo)`"
         },
         {
           "checked": true,
-          "line_num": 220,
+          "line_num": 218,
           "tags": [],
           "text": "`extract_metadata(repo)` orchestrator"
         },
         {
           "checked": true,
-          "line_num": 221,
+          "line_num": 219,
           "tags": [],
           "text": "`emit_markdown` adds conditional `package_name` / `package_version` frontmatter"
         },
         {
           "checked": true,
-          "line_num": 222,
+          "line_num": 220,
           "tags": [],
           "text": "`emit_markdown` adds truncated `Dependencies (N)` bullet"
         },
         {
           "checked": true,
-          "line_num": 223,
+          "line_num": 221,
           "tags": [],
           "text": "Smoke-tested project_finder, a Node project, full `~` scan"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "e2d053aedb40dbf3",
-      "line_num": 217,
+      "id": "726c15fa6babec69",
+      "line_num": 215,
       "source": "todo_md",
       "tags": [],
-      "text": "**Project Metadata Extraction v1 (Python + Node) (2026-05-02): Notes now carry manifest-derived metadata when parseable. `pyproject.toml` (PEP 621 `[project]` table, parsed with stdlib `tomllib`) and `package.json` (parsed with `json`) feed `package_name` / `package_version` into frontmatter and a truncated `Dependencies (N)` bullet into the body. Bumped `requires-python` to `>=3.11` for `tomllib`. `extract_metadata` orchestrator returns the first non-None result (Python checked first), so polyglot projects pick one source per note for now. Verified end-to-end: `project_finder` shows its own pyproject metadata; `claude-max-api-proxy` shows `package_name: claude-max-api-proxy / version: 1.0.0 / Dependencies (2): express, uuid`; full `~` scan succeeds on 180 projects with zero crashes (86 notes have `package_name`, 61 have a Dependencies bullet). Other manifests (Gemfile, Package.swift, configure, DESCRIPTION) and filesystem-mtime fallback are filed as follow-ups.**\n- [x] Bumped `requires-python` to `>=3.11`\n- [x] `_python_metadata(repo)` and `_node_metadata(repo)`\n- [x] `extract_metadata(repo)` orchestrator\n- [x] `emit_markdown` adds conditional `package_name` / `package_version` frontmatter\n- [x] `emit_markdown` adds truncated `Dependencies (N)` bullet\n- [x] Smoke-tested project_finder, a Node project, full `~` scan\n\n`TODO.md:L217`",
+      "text": "**Project Metadata Extraction v1 (Python + Node) (2026-05-02): Notes now carry manifest-derived metadata when parseable. `pyproject.toml` (PEP 621 `[project]` table, parsed with stdlib `tomllib`) and `package.json` (parsed with `json`) feed `package_name` / `package_version` into frontmatter and a truncated `Dependencies (N)` bullet into the body. Bumped `requires-python` to `>=3.11` for `tomllib`. `extract_metadata` orchestrator returns the first non-None result (Python checked first), so polyglot projects pick one source per note for now. Verified end-to-end: `project_finder` shows its own pyproject metadata; `claude-max-api-proxy` shows `package_name: claude-max-api-proxy / version: 1.0.0 / Dependencies (2): express, uuid`; full `~` scan succeeds on 180 projects with zero crashes (86 notes have `package_name`, 61 have a Dependencies bullet). Other manifests (Gemfile, Package.swift, configure, DESCRIPTION) and filesystem-mtime fallback are filed as follow-ups.**\n- [x] Bumped `requires-python` to `>=3.11`\n- [x] `_python_metadata(repo)` and `_node_metadata(repo)`\n- [x] `extract_metadata(repo)` orchestrator\n- [x] `emit_markdown` adds conditional `package_name` / `package_version` frontmatter\n- [x] `emit_markdown` adds truncated `Dependencies (N)` bullet\n- [x] Smoke-tested project_finder, a Node project, full `~` scan\n\n`TODO.md:L215`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1171,42 +1171,42 @@
       "children": [
         {
           "checked": true,
-          "line_num": 226,
+          "line_num": 224,
           "tags": [],
           "text": "`_load_excludes(path) -> frozenset[str]` helper (silent on missing)"
         },
         {
           "checked": true,
-          "line_num": 227,
+          "line_num": 225,
           "tags": [],
           "text": "`--exclude-from FILE` CLI flag"
         },
         {
           "checked": true,
-          "line_num": 228,
+          "line_num": 226,
           "tags": [],
           "text": "Auto-load `<scan-path>/.project_finder_exclude`"
         },
         {
           "checked": true,
-          "line_num": 229,
+          "line_num": 227,
           "tags": [],
           "text": "`find_projects` accepts and merges `extra_excludes`"
         },
         {
           "checked": true,
-          "line_num": 230,
+          "line_num": 228,
           "tags": [],
           "text": "Tested via `.project_finder_exclude` and `--exclude-from`"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "0ac6d73c512b2afb",
-      "line_num": 225,
+      "id": "ca7ead2cf4a944c5",
+      "line_num": 223,
       "source": "todo_md",
       "tags": [],
-      "text": "**External Excludes File (2026-05-02): User-supplied exclude-dir names now layer on top of the hardcoded `EXCLUDED_DIR_NAMES` baseline, from two sources: an auto-loaded `<scan-path>/.project_finder_exclude` (best-effort \u2014 missing file is silently ignored) and a `--exclude-from <FILE>` CLI flag. File format is one dir name per line, with `#` comments and blanks tolerated. Threaded through `find_projects` via a new `extra_excludes` parameter. The \"Found N projects\" line now appends `(+N extra exclude(s))` when user excludes are in play, so the layering is transparent. Verified end-to-end with both file-based and flag-based input on a constructed `keep-me`/`skip-me` tree.**\n- [x] `_load_excludes(path) -> frozenset[str]` helper (silent on missing)\n- [x] `--exclude-from FILE` CLI flag\n- [x] Auto-load `<scan-path>/.project_finder_exclude`\n- [x] `find_projects` accepts and merges `extra_excludes`\n- [x] Tested via `.project_finder_exclude` and `--exclude-from`\n\n`TODO.md:L225`",
+      "text": "**External Excludes File (2026-05-02): User-supplied exclude-dir names now layer on top of the hardcoded `EXCLUDED_DIR_NAMES` baseline, from two sources: an auto-loaded `<scan-path>/.project_finder_exclude` (best-effort \u2014 missing file is silently ignored) and a `--exclude-from <FILE>` CLI flag. File format is one dir name per line, with `#` comments and blanks tolerated. Threaded through `find_projects` via a new `extra_excludes` parameter. The \"Found N projects\" line now appends `(+N extra exclude(s))` when user excludes are in play, so the layering is transparent. Verified end-to-end with both file-based and flag-based input on a constructed `keep-me`/`skip-me` tree.**\n- [x] `_load_excludes(path) -> frozenset[str]` helper (silent on missing)\n- [x] `--exclude-from FILE` CLI flag\n- [x] Auto-load `<scan-path>/.project_finder_exclude`\n- [x] `find_projects` accepts and merges `extra_excludes`\n- [x] Tested via `.project_finder_exclude` and `--exclude-from`\n\n`TODO.md:L223`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1216,48 +1216,48 @@
       "children": [
         {
           "checked": true,
-          "line_num": 233,
+          "line_num": 231,
           "tags": [],
           "text": "`C_SOURCE_EXTENSIONS` constant + `_is_smart_c_project(files)` helper"
         },
         {
           "checked": true,
-          "line_num": 234,
+          "line_num": 232,
           "tags": [],
           "text": "`find_projects` OR-in `_is_smart_c_project(files)`"
         },
         {
           "checked": true,
-          "line_num": 235,
+          "line_num": 233,
           "tags": [],
           "text": "`detect_languages` listdir + smart-C path"
         },
         {
           "checked": true,
-          "line_num": 236,
+          "line_num": 234,
           "tags": [],
           "text": "Constructed Makefile+main.c \u2192 detected + tagged `lang/c`"
         },
         {
           "checked": true,
-          "line_num": 237,
+          "line_num": 235,
           "tags": [],
           "text": "`~/bin/Makefile` alone \u2192 not claimed (regression safe)"
         },
         {
           "checked": true,
-          "line_num": 238,
+          "line_num": 236,
           "tags": [],
           "text": "`~` scan: 170 \u2192 180 (10 real new C projects, no false positives)"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "f50d7816aee5cb6d",
-      "line_num": 232,
+      "id": "3b7157a67cff6743",
+      "line_num": 230,
       "source": "todo_md",
       "tags": [],
-      "text": "**Smart C Detection (2026-05-02): Restored Makefile-driven C project detection without re-introducing the `~/bin/Makefile` false positive. Added `C_SOURCE_EXTENSIONS` constant and `_is_smart_c_project(files)` helper that requires a `Makefile` *plus* at least one `.c` / `.h` / `.cpp` / `.cc` / `.cxx` / `.hpp` / `.hxx` sibling at the same level. Wired into both `find_projects` (Makefile+C-source dirs are detected as projects) and `detect_languages` (those projects get `lang/c`). Verified: a constructed `Makefile+main.c` dir is detected and tagged; a Makefile-only dir is NOT claimed (`~/bin` stays at 14 projects). Scanning `~` rose from 170 \u2192 180 \u2014 the 10 new projects are real Arduino-bootloader-style Makefile+C dirs, and 12 notes now carry the `lang/c` tag.**\n- [x] `C_SOURCE_EXTENSIONS` constant + `_is_smart_c_project(files)` helper\n- [x] `find_projects` OR-in `_is_smart_c_project(files)`\n- [x] `detect_languages` listdir + smart-C path\n- [x] Constructed Makefile+main.c \u2192 detected + tagged `lang/c`\n- [x] `~/bin/Makefile` alone \u2192 not claimed (regression safe)\n- [x] `~` scan: 170 \u2192 180 (10 real new C projects, no false positives)\n\n`TODO.md:L232`",
+      "text": "**Smart C Detection (2026-05-02): Restored Makefile-driven C project detection without re-introducing the `~/bin/Makefile` false positive. Added `C_SOURCE_EXTENSIONS` constant and `_is_smart_c_project(files)` helper that requires a `Makefile` *plus* at least one `.c` / `.h` / `.cpp` / `.cc` / `.cxx` / `.hpp` / `.hxx` sibling at the same level. Wired into both `find_projects` (Makefile+C-source dirs are detected as projects) and `detect_languages` (those projects get `lang/c`). Verified: a constructed `Makefile+main.c` dir is detected and tagged; a Makefile-only dir is NOT claimed (`~/bin` stays at 14 projects). Scanning `~` rose from 170 \u2192 180 \u2014 the 10 new projects are real Arduino-bootloader-style Makefile+C dirs, and 12 notes now carry the `lang/c` tag.**\n- [x] `C_SOURCE_EXTENSIONS` constant + `_is_smart_c_project(files)` helper\n- [x] `find_projects` OR-in `_is_smart_c_project(files)`\n- [x] `detect_languages` listdir + smart-C path\n- [x] Constructed Makefile+main.c \u2192 detected + tagged `lang/c`\n- [x] `~/bin/Makefile` alone \u2192 not claimed (regression safe)\n- [x] `~` scan: 170 \u2192 180 (10 real new C projects, no false positives)\n\n`TODO.md:L230`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1267,42 +1267,42 @@
       "children": [
         {
           "checked": true,
-          "line_num": 241,
+          "line_num": 239,
           "tags": [],
           "text": "Add `_trailing_filename(project, n)`"
         },
         {
           "checked": true,
-          "line_num": 242,
+          "line_num": 240,
           "tags": [],
           "text": "Add `_disambiguate_filenames(projects)` with segment-expansion + hash fallback"
         },
         {
           "checked": true,
-          "line_num": 243,
+          "line_num": 241,
           "tags": [],
           "text": "Update `emit_markdown` to accept a precomputed filename"
         },
         {
           "checked": true,
-          "line_num": 244,
+          "line_num": 242,
           "tags": [],
           "text": "Update `main()` to call disambiguation up front; informational note replaces warning"
         },
         {
           "checked": true,
-          "line_num": 245,
+          "line_num": 243,
           "tags": [],
           "text": "Re-run `~` scan and confirm 170 unique files"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "e18500ae295d5c7d",
-      "line_num": 240,
+      "id": "b7759493548e684b",
+      "line_num": 238,
       "source": "todo_md",
       "tags": [],
-      "text": "**Disambiguate Filename Collisions v2 (2026-05-02): Replaced the post-write collision *warning* with mechanical uniqueness *by construction*. New `_trailing_filename(project, n)` builds names from the last *n* meaningful path components; `_disambiguate_filenames(projects)` runs over the full project list once and expands trailing-segment count per colliding group until every member is unique (with a SHA-1 fallback for the effectively-impossible case). `main()` now precomputes all filenames before any write happens \u2014 silent overwrites are structurally impossible. Verified on `~`: 170 projects \u2192 170 unique files, with the three `plugin/multiplex` paths cleanly resolved as `guidebook_plugin_multiplex.md`, `tutorials_plugin_multiplex.md`, `mess_experiment_plugin_multiplex.md`. The runtime warning was replaced with an informational stderr note showing what was disambiguated and to what.**\n- [x] Add `_trailing_filename(project, n)`\n- [x] Add `_disambiguate_filenames(projects)` with segment-expansion + hash fallback\n- [x] Update `emit_markdown` to accept a precomputed filename\n- [x] Update `main()` to call disambiguation up front; informational note replaces warning\n- [x] Re-run `~` scan and confirm 170 unique files\n\n`TODO.md:L240`",
+      "text": "**Disambiguate Filename Collisions v2 (2026-05-02): Replaced the post-write collision *warning* with mechanical uniqueness *by construction*. New `_trailing_filename(project, n)` builds names from the last *n* meaningful path components; `_disambiguate_filenames(projects)` runs over the full project list once and expands trailing-segment count per colliding group until every member is unique (with a SHA-1 fallback for the effectively-impossible case). `main()` now precomputes all filenames before any write happens \u2014 silent overwrites are structurally impossible. Verified on `~`: 170 projects \u2192 170 unique files, with the three `plugin/multiplex` paths cleanly resolved as `guidebook_plugin_multiplex.md`, `tutorials_plugin_multiplex.md`, `mess_experiment_plugin_multiplex.md`. The runtime warning was replaced with an informational stderr note showing what was disambiguated and to what.**\n- [x] Add `_trailing_filename(project, n)`\n- [x] Add `_disambiguate_filenames(projects)` with segment-expansion + hash fallback\n- [x] Update `emit_markdown` to accept a precomputed filename\n- [x] Update `main()` to call disambiguation up front; informational note replaces warning\n- [x] Re-run `~` scan and confirm 170 unique files\n\n`TODO.md:L238`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1312,48 +1312,48 @@
       "children": [
         {
           "checked": true,
-          "line_num": 248,
+          "line_num": 246,
           "tags": [],
           "text": "Prune dirs starting with `.` in `find_projects`"
         },
         {
           "checked": true,
-          "line_num": 249,
+          "line_num": 247,
           "tags": [],
           "text": "Add `--include-hidden` CLI flag"
         },
         {
           "checked": true,
-          "line_num": 250,
+          "line_num": 248,
           "tags": [],
           "text": "Add macOS Library noise to `EXCLUDED_DIR_NAMES`"
         },
         {
           "checked": true,
-          "line_num": 251,
+          "line_num": 249,
           "tags": [],
           "text": "Update module docstring + `--help` so the hidden-skip is discoverable"
         },
         {
           "checked": true,
-          "line_num": 252,
+          "line_num": 250,
           "tags": [],
           "text": "Re-scan `~` end-to-end (170 projects, sane count, collision warning surfaces)"
         },
         {
           "checked": true,
-          "line_num": 253,
+          "line_num": 251,
           "tags": [],
           "text": "Bonus: runtime collision detection + stderr warning"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "0c2beff912daecb9",
-      "line_num": 247,
+      "id": "5549eb92a8430e31",
+      "line_num": 245,
       "source": "todo_md",
       "tags": [],
-      "text": "**Skip Hidden Dirs by Default (Poka-Yoke) (2026-05-02): Walking `~` blew up at first attempt \u2014 `~/.bun`, `~/.cache`, `~/.npm`, `~/.cargo`, `~/.pyenv`, `~/.local`, `~/.rustup` all contain tool-managed cached packages with `package.json` / `pyproject.toml` / `Gemfile` markers, each falsely marked as a project. Fix: `find_projects` now prunes any dir whose name starts with `.` by default (matches the `find`/`ls` convention), with `--include-hidden` to opt back in. Also added `Caches`, `Containers`, `Application Support` to `EXCLUDED_DIR_NAMES` to catch macOS `~/Library/...` traps. As a related poka-yoke, the runtime now detects `<parent>_<name>` filename collisions and warns to stderr with the colliding paths \u2014 found 170 projects in `~`, with one 3-way `plugin_multiplex.md` collision visibly reported (deeper rename scheme deferred to a follow-up card).**\n- [x] Prune dirs starting with `.` in `find_projects`\n- [x] Add `--include-hidden` CLI flag\n- [x] Add macOS Library noise to `EXCLUDED_DIR_NAMES`\n- [x] Update module docstring + `--help` so the hidden-skip is discoverable\n- [x] Re-scan `~` end-to-end (170 projects, sane count, collision warning surfaces)\n- [x] Bonus: runtime collision detection + stderr warning\n\n`TODO.md:L247`",
+      "text": "**Skip Hidden Dirs by Default (Poka-Yoke) (2026-05-02): Walking `~` blew up at first attempt \u2014 `~/.bun`, `~/.cache`, `~/.npm`, `~/.cargo`, `~/.pyenv`, `~/.local`, `~/.rustup` all contain tool-managed cached packages with `package.json` / `pyproject.toml` / `Gemfile` markers, each falsely marked as a project. Fix: `find_projects` now prunes any dir whose name starts with `.` by default (matches the `find`/`ls` convention), with `--include-hidden` to opt back in. Also added `Caches`, `Containers`, `Application Support` to `EXCLUDED_DIR_NAMES` to catch macOS `~/Library/...` traps. As a related poka-yoke, the runtime now detects `<parent>_<name>` filename collisions and warns to stderr with the colliding paths \u2014 found 170 projects in `~`, with one 3-way `plugin_multiplex.md` collision visibly reported (deeper rename scheme deferred to a follow-up card).**\n- [x] Prune dirs starting with `.` in `find_projects`\n- [x] Add `--include-hidden` CLI flag\n- [x] Add macOS Library noise to `EXCLUDED_DIR_NAMES`\n- [x] Update module docstring + `--help` so the hidden-skip is discoverable\n- [x] Re-scan `~` end-to-end (170 projects, sane count, collision warning surfaces)\n- [x] Bonus: runtime collision detection + stderr warning\n\n`TODO.md:L245`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1363,42 +1363,42 @@
       "children": [
         {
           "checked": true,
-          "line_num": 256,
+          "line_num": 254,
           "tags": [],
           "text": "Replace `find_git_repos` with `find_projects` (os.walk + unified `PROJECT_MARKERS`)"
         },
         {
           "checked": true,
-          "line_num": 257,
+          "line_num": 255,
           "tags": [],
           "text": "Stop descending once a project root is identified"
         },
         {
           "checked": true,
-          "line_num": 258,
+          "line_num": 256,
           "tags": [],
           "text": "Hardcoded excluded-dir list (CSV-loading deferred to a Prototype Follow-up)"
         },
         {
           "checked": true,
-          "line_num": 259,
+          "line_num": 257,
           "tags": [],
           "text": "`emit_markdown` gracefully degrades for non-git projects"
         },
         {
           "checked": true,
-          "line_num": 260,
+          "line_num": 258,
           "tags": [],
           "text": "Smoke tested on `~/bin/` and a mixed synthetic tree"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "2e6f40c05654ae8f",
-      "line_num": 255,
+      "id": "97cc05c255a3bc07",
+      "line_num": 253,
       "source": "todo_md",
       "tags": [],
-      "text": "**Project Discovery Walker (2026-05-02): Replaced `find_git_repos` with `os.walk`-based `find_projects` that detects any project root by marker (git or language file), stops descending once a root is identified, and prunes common noise dirs (`node_modules`, `__pycache__`, `.venv`, `venv`, `target`, `build`, `dist`, `vendor`, plus the `.mypy_cache` / `.pytest_cache` / `.ruff_cache` trio). `emit_markdown` now degrades gracefully for non-git projects (no `git` tag, no Remote bullet, no Last-commit bullet, frontmatter timestamp says `(non-git project)`). Verified on `~/bin/` (still 14) and a constructed mixed tree exercising git, non-git, nested, monorepo-stop-descent, and `node_modules` pruning.**\n- [x] Replace `find_git_repos` with `find_projects` (os.walk + unified `PROJECT_MARKERS`)\n- [x] Stop descending once a project root is identified\n- [x] Hardcoded excluded-dir list (CSV-loading deferred to a Prototype Follow-up)\n- [x] `emit_markdown` gracefully degrades for non-git projects\n- [x] Smoke tested on `~/bin/` and a mixed synthetic tree\n\n`TODO.md:L255`",
+      "text": "**Project Discovery Walker (2026-05-02): Replaced `find_git_repos` with `os.walk`-based `find_projects` that detects any project root by marker (git or language file), stops descending once a root is identified, and prunes common noise dirs (`node_modules`, `__pycache__`, `.venv`, `venv`, `target`, `build`, `dist`, `vendor`, plus the `.mypy_cache` / `.pytest_cache` / `.ruff_cache` trio). `emit_markdown` now degrades gracefully for non-git projects (no `git` tag, no Remote bullet, no Last-commit bullet, frontmatter timestamp says `(non-git project)`). Verified on `~/bin/` (still 14) and a constructed mixed tree exercising git, non-git, nested, monorepo-stop-descent, and `node_modules` pruning.**\n- [x] Replace `find_git_repos` with `find_projects` (os.walk + unified `PROJECT_MARKERS`)\n- [x] Stop descending once a project root is identified\n- [x] Hardcoded excluded-dir list (CSV-loading deferred to a Prototype Follow-up)\n- [x] `emit_markdown` gracefully degrades for non-git projects\n- [x] Smoke tested on `~/bin/` and a mixed synthetic tree\n\n`TODO.md:L253`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1408,36 +1408,36 @@
       "children": [
         {
           "checked": true,
-          "line_num": 263,
+          "line_num": 261,
           "tags": [],
           "text": "Add host repo link (`git remote get-url origin`, SSH\u2192HTTPS, strip `.git`)"
         },
         {
           "checked": true,
-          "line_num": 264,
+          "line_num": 262,
           "tags": [],
           "text": "Add `parent/<dir>` tag from the repo's containing directory"
         },
         {
           "checked": true,
-          "line_num": 265,
+          "line_num": 263,
           "tags": [],
           "text": "Detect languages from root marker files and emit `lang/<name>` tags"
         },
         {
           "checked": true,
-          "line_num": 266,
+          "line_num": 264,
           "tags": [],
           "text": "Re-run on `~/bin/` and confirm tags + host links render correctly"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "1cefd1a5250ea016",
-      "line_num": 262,
+      "id": "07146963dcd52874",
+      "line_num": 260,
       "source": "todo_md",
       "tags": [],
-      "text": "**Vault Note Enrichment v1 (2026-05-02): Each note now carries a `parent/<dir>` tag, one `lang/<name>` tag per detected language (python, node, ruby, swift, perl, c, r \u2014 by marker files in the repo root), and a `- Remote: <url>` bullet linking to the host repo (SSH\u2192HTTPS normalized, `.git` stripped). All bullets degrade gracefully when their data is absent.**\n- [x] Add host repo link (`git remote get-url origin`, SSH\u2192HTTPS, strip `.git`)\n- [x] Add `parent/<dir>` tag from the repo's containing directory\n- [x] Detect languages from root marker files and emit `lang/<name>` tags\n- [x] Re-run on `~/bin/` and confirm tags + host links render correctly\n\n`TODO.md:L262`",
+      "text": "**Vault Note Enrichment v1 (2026-05-02): Each note now carries a `parent/<dir>` tag, one `lang/<name>` tag per detected language (python, node, ruby, swift, perl, c, r \u2014 by marker files in the repo root), and a `- Remote: <url>` bullet linking to the host repo (SSH\u2192HTTPS normalized, `.git` stripped). All bullets degrade gracefully when their data is absent.**\n- [x] Add host repo link (`git remote get-url origin`, SSH\u2192HTTPS, strip `.git`)\n- [x] Add `parent/<dir>` tag from the repo's containing directory\n- [x] Detect languages from root marker files and emit `lang/<name>` tags\n- [x] Re-run on `~/bin/` and confirm tags + host links render correctly\n\n`TODO.md:L260`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1447,36 +1447,36 @@
       "children": [
         {
           "checked": true,
-          "line_num": 269,
+          "line_num": 267,
           "tags": [],
           "text": "Decide naming scheme \u2014 `<parent-dir>_<repo-name>.md`"
         },
         {
           "checked": true,
-          "line_num": 270,
+          "line_num": 268,
           "tags": [],
           "text": "Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme"
         },
         {
           "checked": true,
-          "line_num": 271,
+          "line_num": 269,
           "tags": [],
           "text": "Make the path bullet a `vscode://file/<abs-path>` link"
         },
         {
           "checked": true,
-          "line_num": 272,
+          "line_num": 270,
           "tags": [],
           "text": "Test on a tree with two repos sharing a basename to confirm no overwrites"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "31b2c4a16a83bde0",
-      "line_num": 268,
+      "id": "75d2af73e4b25616",
+      "line_num": 266,
       "source": "todo_md",
       "tags": [],
-      "text": "**Disambiguate Repo Filenames + VSCode Links (2026-05-02): Filenames now `<parent>_<repo>.md` (e.g. `bin_project_finder.md`); path bullet is a `vscode://file//<abs-path>` link. Verified with a constructed two-`notes` collision tree and a re-run on `~/bin/`.**\n- [x] Decide naming scheme \u2014 `<parent-dir>_<repo-name>.md`\n- [x] Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme\n- [x] Make the path bullet a `vscode://file/<abs-path>` link\n- [x] Test on a tree with two repos sharing a basename to confirm no overwrites\n\n`TODO.md:L268`",
+      "text": "**Disambiguate Repo Filenames + VSCode Links (2026-05-02): Filenames now `<parent>_<repo>.md` (e.g. `bin_project_finder.md`); path bullet is a `vscode://file//<abs-path>` link. Verified with a constructed two-`notes` collision tree and a re-run on `~/bin/`.**\n- [x] Decide naming scheme \u2014 `<parent-dir>_<repo-name>.md`\n- [x] Update `emit_markdown` in `src/project_finder/cli.py` to use the chosen scheme\n- [x] Make the path bullet a `vscode://file/<abs-path>` link\n- [x] Test on a tree with two repos sharing a basename to confirm no overwrites\n\n`TODO.md:L266`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1486,36 +1486,36 @@
       "children": [
         {
           "checked": true,
-          "line_num": 275,
+          "line_num": 273,
           "tags": [],
           "text": "Initialize repo as a git project (`git init`)"
         },
         {
           "checked": true,
-          "line_num": 276,
+          "line_num": 274,
           "tags": [],
           "text": "Add license file (AGPL per README)"
         },
         {
           "checked": true,
-          "line_num": 277,
+          "line_num": 275,
           "tags": [],
           "text": "Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`"
         },
         {
           "checked": true,
-          "line_num": 278,
+          "line_num": 276,
           "tags": [],
           "text": "Run end-to-end on a real tree and confirm the output looks right"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "0f49c9153441cdb6",
-      "line_num": 274,
+      "id": "6331daa012a1184e",
+      "line_num": 272,
       "source": "todo_md",
       "tags": [],
-      "text": "**Smallest Prototype (2026-05-02): Walk tree, find dirs containing `.git`, emit one markdown per repo with path + last commit timestamp. Python, stdlib only. Verified on 14 repos in `~/bin/`.**\n- [x] Initialize repo as a git project (`git init`)\n- [x] Add license file (AGPL per README)\n- [x] Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`\n- [x] Run end-to-end on a real tree and confirm the output looks right\n\n`TODO.md:L274`",
+      "text": "**Smallest Prototype (2026-05-02): Walk tree, find dirs containing `.git`, emit one markdown per repo with path + last commit timestamp. Python, stdlib only. Verified on 14 repos in `~/bin/`.**\n- [x] Initialize repo as a git project (`git init`)\n- [x] Add license file (AGPL per README)\n- [x] Set up dependency manifest and entry point matching `project_finder <scan-path> [vault-output-path]`\n- [x] Run end-to-end on a real tree and confirm the output looks right\n\n`TODO.md:L272`",
       "type": "text",
       "width": 280,
       "x": 1410,
@@ -1525,24 +1525,24 @@
       "children": [
         {
           "checked": true,
-          "line_num": 281,
+          "line_num": 279,
           "tags": [],
           "text": "Create `.todoscope-exclude.csv` with sensible defaults"
         },
         {
           "checked": true,
-          "line_num": 282,
+          "line_num": 280,
           "tags": [],
           "text": "Create initial `TODO.md` with convention header and roadmap structure"
         }
       ],
       "file_path": "TODO.md",
       "height": 80,
-      "id": "9169e25b1e69d946",
-      "line_num": 280,
+      "id": "094e186781024c03",
+      "line_num": 278,
       "source": "todo_md",
       "tags": [],
-      "text": "**TodoScope Alignment (2026-05-02): Bootstrap repo for kanban scanning**\n- [x] Create `.todoscope-exclude.csv` with sensible defaults\n- [x] Create initial `TODO.md` with convention header and roadmap structure\n\n`TODO.md:L280`",
+      "text": "**TodoScope Alignment (2026-05-02): Bootstrap repo for kanban scanning**\n- [x] Create `.todoscope-exclude.csv` with sensible defaults\n- [x] Create initial `TODO.md` with convention header and roadmap structure\n\n`TODO.md:L278`",
       "type": "text",
       "width": 280,
       "x": 1410,
